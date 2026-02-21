@@ -1,0 +1,255 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Light Mode - Tactical Clean Interface */
+    --background: 210 40% 98%;
+    --foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 221 83% 53%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+    --accent: 160 84% 39%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 221 83% 53%;
+    --radius: 0.5rem;
+    
+    /* ALPHA Custom Variables */
+    --alpha-bg: #F8FAFC;
+    --alpha-surface: #FFFFFF;
+    --alpha-card: #FFFFFF;
+    --alpha-border: #E5E7EB;
+    --alpha-accent-primary: #2563EB;
+    --alpha-accent-secondary: #10B981;
+    --alpha-text-primary: #111827;
+    --alpha-text-secondary: #374151;
+    --alpha-text-muted: #6B7280;
+    --alpha-neon: #2563EB;
+    --alpha-grid: rgba(37, 99, 235, 0.05);
+  }
+
+  .dark {
+    /* Dark Mode - AI Terminal */
+    --background: 220 30% 5%;
+    --foreground: 220 13% 91%;
+    --card: 220 20% 9%;
+    --card-foreground: 220 13% 91%;
+    --popover: 220 20% 9%;
+    --popover-foreground: 220 13% 91%;
+    --primary: 151 100% 50%;
+    --primary-foreground: 220 30% 5%;
+    --secondary: 220 17% 12%;
+    --secondary-foreground: 220 13% 91%;
+    --muted: 220 17% 12%;
+    --muted-foreground: 220 9% 46%;
+    --accent: 151 100% 50%;
+    --accent-foreground: 220 30% 5%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 17% 18%;
+    --input: 220 17% 18%;
+    --ring: 151 100% 50%;
+    
+    /* ALPHA Custom Variables - Dark */
+    --alpha-bg: #0B0F14;
+    --alpha-surface: #111827;
+    --alpha-card: #161B22;
+    --alpha-border: #1F2937;
+    --alpha-accent-primary: #00FF88;
+    --alpha-accent-secondary: #3B82F6;
+    --alpha-accent-violet: #8B5CF6;
+    --alpha-text-primary: #E5E7EB;
+    --alpha-text-secondary: #9CA3AF;
+    --alpha-text-muted: #6B7280;
+    --alpha-neon: #00FF88;
+    --alpha-grid: rgba(0, 255, 136, 0.03);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-[var(--alpha-bg)] text-[var(--alpha-text-primary)] antialiased;
+    font-family: 'Inter', sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+  }
+  
+  code, pre, .mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+@layer components {
+  /* Terminal Cursor Blink */
+  .cursor-blink::after {
+    content: '_';
+    animation: blink 1s step-end infinite;
+    color: var(--alpha-neon);
+  }
+  
+  @keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+  }
+  
+  /* Neon Glow Effect - Dark Mode Only */
+  .neon-glow {
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.15),
+                0 0 40px rgba(0, 255, 136, 0.1),
+                0 0 60px rgba(0, 255, 136, 0.05);
+  }
+  
+  .dark .neon-glow {
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.15),
+                0 0 40px rgba(0, 255, 136, 0.1),
+                0 0 60px rgba(0, 255, 136, 0.05);
+  }
+  
+  /* Grid Background Overlay */
+  .grid-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    background-image: 
+      linear-gradient(var(--alpha-grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--alpha-grid) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+  
+  /* Terminal Card Style */
+  .terminal-card {
+    @apply bg-[var(--alpha-card)] border border-[var(--alpha-border)] rounded-lg;
+    transition: all 0.3s ease;
+  }
+  
+  .terminal-card:hover {
+    border-color: var(--alpha-neon);
+    transform: translateY(-2px);
+  }
+  
+  .dark .terminal-card:hover {
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.1);
+  }
+  
+  /* Status Badge */
+  .status-live {
+    @apply inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-xs font-medium;
+    background: rgba(16, 185, 129, 0.1);
+    color: #10B981;
+  }
+  
+  .dark .status-live {
+    background: rgba(0, 255, 136, 0.1);
+    color: #00FF88;
+  }
+  
+  /* Link Style */
+  .terminal-link {
+    @apply mono text-sm transition-all duration-200;
+    color: var(--alpha-text-secondary);
+  }
+  
+  .terminal-link:hover {
+    color: var(--alpha-neon);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  
+  /* Button Styles */
+  .btn-primary {
+    @apply px-4 py-2 rounded-lg font-medium transition-all duration-200;
+    background: var(--alpha-accent-primary);
+    color: white;
+  }
+  
+  .btn-primary:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+  
+  .btn-outline {
+    @apply px-4 py-2 rounded-lg font-medium border transition-all duration-200;
+    border-color: var(--alpha-border);
+    color: var(--alpha-text-primary);
+    background: transparent;
+  }
+  
+  .btn-outline:hover {
+    border-color: var(--alpha-neon);
+    color: var(--alpha-neon);
+  }
+  
+  /* Section Container */
+  .section-container {
+    @apply w-full px-4 sm:px-6 lg:px-8 xl:px-12;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  
+  /* Page Transition */
+  .page-transition {
+    animation: fadeIn 0.3s ease-out;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--alpha-surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--alpha-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--alpha-text-muted);
+}
+
+/* Selection */
+::selection {
+  background: var(--alpha-neon);
+  color: var(--alpha-bg);
+}
+/* Tambahkan di BAGIAN PALING BAWAH file index.css */
+

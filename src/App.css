@@ -1,0 +1,140 @@
+/* ALPHA - Web3 AI Terminal Styles */
+
+/* Smooth transitions for theme changes */
+* {
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+/* Custom scrollbar for terminal feel */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--alpha-surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--alpha-border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--alpha-text-muted);
+}
+
+/* Selection styling */
+::selection {
+  background: var(--alpha-neon);
+  color: var(--alpha-bg);
+}
+
+/* Focus styles */
+*:focus-visible {
+  outline: 2px solid var(--alpha-neon);
+  outline-offset: 2px;
+}
+
+/* Terminal text effects */
+.terminal-text {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Glow effect for dark mode */
+.dark .glow-text {
+  text-shadow: 0 0 10px currentColor;
+}
+
+/* Card hover lift effect */
+.card-lift {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-lift:hover {
+  transform: translateY(-4px);
+}
+
+/* Pulse animation for live indicators */
+@keyframes pulse-dot {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.pulse-dot {
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+/* Typing cursor effect */
+.typing-cursor::after {
+  content: '|';
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+/* Grid line animation */
+@keyframes grid-pulse {
+  0%, 100% {
+    opacity: 0.03;
+  }
+  50% {
+    opacity: 0.06;
+  }
+}
+
+.grid-animated {
+  animation: grid-pulse 4s ease-in-out infinite;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .section-container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+:root {
+  --alpha-neon: #2563EB;
+  --alpha-border: #e5e7eb;
+  --alpha-bg: #ffffff;
+  --alpha-bg-secondary: #f3f4f6;
+  --alpha-card: #ffffff;
+  --alpha-text-primary: #1a1a1a;
+  --alpha-text-secondary: #6b7280;
+  --alpha-text-muted: #9ca3af;
+}
+
+.dark {
+  --alpha-neon: #00FF88;
+  --alpha-border: #27272a;
+  --alpha-bg: #0a0a0a;
+  --alpha-bg-secondary: #18181b;
+  --alpha-card: #131316;
+  --alpha-text-primary: #ffffff;
+  --alpha-text-secondary: #a1a1aa;
+  --alpha-text-muted: #71717a;
+}
