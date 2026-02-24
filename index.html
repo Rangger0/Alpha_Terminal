@@ -3,18 +3,34 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ALPHA_TERMINAL</title>
+    <title>Alpha_Terminal</title>
+    <meta name="description" content="Crypto Airdrop Hunter Dashboard - Track and manage your airdrop campaigns" />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Theme Script -->
     <script>
-      // Prevent flash of wrong theme
       (function() {
-        const savedTheme = localStorage.getItem('alpha-theme');
-        if (savedTheme === 'light') {
-          document.documentElement.classList.remove('dark');
-        } else {
-          document.documentElement.classList.add('dark');
-        }
+        const theme = localStorage.getItem('alpha_tracker_theme') || 'dark';
+        document.documentElement.classList.add(theme);
+        document.documentElement.classList.remove(theme === 'dark' ? 'light' : 'dark');
       })();
     </script>
+    
+    <style>
+      html { background-color: #0a0a0f; }
+      body { margin: 0; min-height: 100vh; }
+      #root { min-height: 100vh; }
+    </style>
   </head>
   <body>
     <div id="root"></div>

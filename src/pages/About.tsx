@@ -1,4 +1,3 @@
-// src/pages/About.tsx
 import { useTheme } from '@/hooks/useTheme';
 import { 
   Terminal, Cpu, Shield, Zap, Database, Globe, Code,
@@ -9,10 +8,6 @@ import type { ReactNode } from 'react';
 import { useState, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 
-// ============================================
-// DATA DEFINITIONS
-// ============================================
-
 const stats = [
   { icon: Calendar, label: 'Years Experience', value: '4+' },
   { icon: FolderGit2, label: 'Projects Completed', value: '50+' },
@@ -22,72 +17,72 @@ const stats = [
 
 const experiences = [
   {
-    title: 'Web3 Developer',
-    company: 'Freelance / Self Employed',
+    title: 'Web3 Airdrop Hunter',
+    company: 'Independent Research & Execution',
     period: '2022 - Present',
-    description: 'Building DeFi protocols, smart contracts, and Web3 applications on Ethereum and Solana.',
+    description: 'Actively researching, tracking, and executing high-potential airdrop campaigns across Ethereum, Solana, Layer 2, and emerging ecosystems. Focused on on-chain activity optimization, task automation, and eligibility positioning.',
   },
   {
-    title: 'Full Stack Developer',
+    title: 'Full Stack Builder',
     company: 'Tech Startup',
     period: '2020 - 2022',
-    description: 'Developed scalable web applications and API integrations.',
+    description: 'Built scalable web applications, backend APIs, and automation systems that now support structured Web3 workflows and data-driven execution.',
   }
 ];
 
 const features = [
   {
     icon: Database,
-    title: 'Structured Financial System',
-    description: 'Sistem tracking keuangan terstruktur dengan analytics real-time dan reporting otomatis.',
+    title: 'Airdrop Tracking System',
+    description: 'Structured monitoring system for tracking project eligibility, interaction depth, wallet activity, and snapshot positioning.',
   },
   {
     icon: Globe,
-    title: 'Web3 Execution Dashboard',
-    description: 'Interface terpadu untuk mengelola interaksi dengan blockchain dan protokol DeFi.',
+    title: 'Multi-Chain Execution',
+    description: 'Active participation across Ethereum, Solana, Layer 2 networks, and emerging chains with optimized gas strategy and interaction mapping.',
   },
   {
     icon: Code,
-    title: 'Personal System Architecture',
-    description: 'Arsitektur modular yang memungkinkan integrasi dan ekspansi komponen dengan mudah.',
+    title: 'On-Chain Strategy Architecture',
+    description: 'Modular execution framework designed to maximize allocation probability through consistent interaction and protocol engagement.',
   },
   {
     icon: Shield,
-    title: 'Security First',
-    description: 'Implementasi best practices keamanan untuk melindungi aset dan data sensitif.',
+    title: 'Risk & Sybil Awareness',
+    description: 'Security-first approach with wallet segmentation, anti-sybil discipline, and capital exposure control.',
   },
-];
-
-const skillStack = [
-  { category: 'BLOCKCHAIN', items: ['Ethereum', 'Solana', 'Layer 2', 'Smart Contracts'] },
+ ]; const skillStack = [
+      
+  { category: 'BLOCKCHAIN', items: ['Ethereum', 'Solana','BNB', 'Layer 2', 'Layer 1', 'Smart Contracts'] }, 
   { category: 'FRONTEND', items: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS'] },
-  { category: 'BACKEND', items: ['Node.js', 'PostgreSQL', 'Redis', 'GraphQL'] },
-  { category: 'DEVOPS', items: ['Docker', 'AWS', 'Vercel', 'CI/CD'] },
-];
-
-const commands = [
+  { category: 'BACKEND', items: ['Node.js', 'PostgreSQL', 'Redis', 'GraphQL'] }, 
+  { category: 'DEVOPS', items: ['Docker', 'CLI', 'Vercel', 'CI/CD'] }, 
+ ]; const commands = [ 
   { cmd: 'cat about.txt', output: 'Web3 developer passionate about blockchain technology.' },
-  { cmd: 'ls skills/', output: '[blockchain, defi, smart-contracts, react, nodejs]' },
-  { cmd: 'pwd', output: '/home/rose-alpha/web3-developer' },
-  { cmd: 'contact --email', output: 'rangger@alpha-terminal.dev' },
-];
+  { cmd: 'ls skills/', output: '_blockchain, defi, Nft, smart-contracts, Depin, nodejs, CLI, Onchain Tracking, AI Agent' },
+  { cmd: 'pwd', output: '/home/rose-alpha/Alpha_Terminal' },
+  { cmd: 'contact --email', output: 'Allgazali011@gmail.com' },
+ ];
 
 const testimonials = [
+
   {
-    quote: "Rose Alpha delivered exceptional work on our DeFi protocol. Clean, well-tested smart contracts.",
-    author: "Crypto Startup Founder",
-    role: "DeFi Project"
+    quote: "Delivered structured and consistent on-chain activity that significantly increased our campaign engagement metrics. Highly disciplined execution.",
+    author: "Protocol Growth Lead",
+    role: "Layer 2 Ecosystem Pengarit-handal"
   },
   {
-    quote: "Professional, communicative, and technically skilled. Highly recommended for Web3 development.",
-    author: "Tech Lead",
-    role: "Blockchain Company"
+    quote: "Demonstrated deep understanding of airdrop mechanics, snapshot behavior, and wallet positioning. Strategic and data-driven approach.",
+    author: "Web3 Research Contributor",
+    role: "DeFi Community"
+  },
+  {
+    quote: "Consistent multi-chain participation with optimized gas usage and smart interaction patterns. Clear operational mindset.",
+    author: "DAO Member",
+    role: "Blockchain Network"
   }
 ];
 
-// ============================================
-// ANIMATED SECTION COMPONENT
-// ============================================
 
 interface AnimatedSectionProps {
   children: ReactNode;
@@ -125,9 +120,6 @@ function AnimatedSection({
   );
 }
 
-// ============================================
-// MAIN COMPONENT
-// ============================================
 
 export function About() {
   const { theme } = useTheme();
@@ -147,7 +139,7 @@ export function About() {
     <div className="page-transition min-h-screen pt-24 pb-16 overflow-hidden">
       <div className="section-container space-y-8">
         
-        {/* 1. HERO SECTION - Slide dari kiri */}
+       
         <AnimatedSection direction="left">
           <section className="terminal-card overflow-hidden">
             <div className="p-6 md:p-8">
@@ -196,7 +188,7 @@ export function About() {
           </section>
         </AnimatedSection>
 
-        {/* 2. STATS SECTION - Slide dari kanan */}
+      
         <AnimatedSection direction="right" delay={0.1}>
           <section className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {stats.map((stat) => {
@@ -220,7 +212,7 @@ export function About() {
           </section>
         </AnimatedSection>
 
-        {/* 3. TIMELINE SECTION - Slide dari kiri */}
+       
         <AnimatedSection direction="left" delay={0.2}>
           <section className="terminal-card">
             <div className="p-6">
@@ -258,7 +250,7 @@ export function About() {
           </section>
         </AnimatedSection>
 
-        {/* 4. FEATURES - Slide dari kanan */}
+      
         <AnimatedSection direction="right" delay={0.3}>
           <section className="grid md:grid-cols-2 gap-6">
             {features.map((feature) => (
@@ -286,7 +278,7 @@ export function About() {
           </section>
         </AnimatedSection>
 
-        {/* 5. SKILL STACK - Slide dari kiri */}
+      
         <AnimatedSection direction="left" delay={0.4}>
           <section className="terminal-card p-6">
             <div className="flex items-center gap-2 mb-6">
@@ -326,7 +318,7 @@ export function About() {
           </section>
         </AnimatedSection>
 
-        {/* 6. TERMINAL COMMANDS - Slide dari kanan */}
+       
         <AnimatedSection direction="right" delay={0.5}>
           <section className="rounded-xl overflow-hidden" style={{ background: '#0c1021cb', border: '1px solid #000000' }}>
             <div className="px-4 py-3 border-b flex items-center justify-between" style={{ borderColor: '#222b38', background: '#1e293b' }}>
@@ -371,7 +363,7 @@ export function About() {
           </section>
         </AnimatedSection>
 
-        {/* 7. TESTIMONIALS - Slide dari kiri */}
+       
         <AnimatedSection direction="left" delay={0.6}>
           <section>
             <div className="flex items-center gap-2 mb-4">
@@ -408,7 +400,7 @@ export function About() {
           </section>
         </AnimatedSection>
 
-        {/* 8. CONTACT CTA - Slide dari kanan */}
+       
         <AnimatedSection direction="right" delay={0.7}>
           <section className="terminal-card p-6 md:p-8 text-center">
             <motion.h2 
@@ -437,7 +429,7 @@ export function About() {
           </section>
         </AnimatedSection>
 
-        {/* Footer */}
+      
         <AnimatedSection direction="up" delay={0.8}>
           <section className="py-8 border-t" style={{ borderColor: isDark ? '#334155' : '#e2e8f0' }}>
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">

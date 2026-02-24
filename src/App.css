@@ -1,11 +1,7 @@
-/* ALPHA - Web3 AI Terminal Styles */
-
-/* Smooth transitions for theme changes */
 * {
   transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
-/* Custom scrollbar for terminal feel */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -24,29 +20,24 @@
   background: var(--alpha-text-muted);
 }
 
-/* Selection styling */
 ::selection {
   background: var(--alpha-neon);
   color: var(--alpha-bg);
 }
 
-/* Focus styles */
 *:focus-visible {
   outline: 2px solid var(--alpha-neon);
   outline-offset: 2px;
 }
 
-/* Terminal text effects */
 .terminal-text {
   font-family: 'JetBrains Mono', monospace;
 }
 
-/* Glow effect for dark mode */
 .dark .glow-text {
   text-shadow: 0 0 10px currentColor;
 }
 
-/* Card hover lift effect */
 .card-lift {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -55,7 +46,6 @@
   transform: translateY(-4px);
 }
 
-/* Pulse animation for live indicators */
 @keyframes pulse-dot {
   0%, 100% {
     opacity: 1;
@@ -69,7 +59,6 @@
   animation: pulse-dot 2s ease-in-out infinite;
 }
 
-/* Typing cursor effect */
 .typing-cursor::after {
   content: '|';
   animation: blink 1s step-end infinite;
@@ -84,7 +73,6 @@
   }
 }
 
-/* Grid line animation */
 @keyframes grid-pulse {
   0%, 100% {
     opacity: 0.03;
@@ -98,7 +86,6 @@
   animation: grid-pulse 4s ease-in-out infinite;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
   .section-container {
     padding-left: 1rem;
@@ -106,7 +93,6 @@
   }
 }
 
-/* Reduced motion preferences */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

@@ -1,4 +1,3 @@
-// src/pages/Home.tsx
 import { useTheme } from '@/hooks/useTheme';
 import { ExternalLink, Activity, TrendingUp, Github, Twitter, Send } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
@@ -25,7 +24,7 @@ const systemNodes = [
   {
     id: 'PROJECT 02',
     name: 'ALPHA TRACKER',
-    description: 'Airdrop monitoring dashboard for eligibility and claim tracking.',
+    description: 'Airdrop monitoring dashboard for eligibility and claim tracking.List Project',
     link: 'https://alpha-trecker-18xx.vercel.app/dashboard',
     icon: Activity,
   },
@@ -104,12 +103,8 @@ export function Home() {
 
   return (
     <div className="page-transition min-h-screen pt-24 pb-16">
-      <div className="section-container">
-        
-        {/* Hero Section */}
+      <div className="section-container"> 
         <HeroSection />
-        
-        {/* System Status Section */}
         <section className="py-12">
           <div className="flex items-center gap-3 mb-8">
             <div 
@@ -180,8 +175,6 @@ export function Home() {
             ))}
           </div>
         </section>
-
-        {/* Media Nodes Section */}
         <section className="py-12 overflow-hidden" ref={mediaRef}>
           <div className="flex items-center gap-3 mb-12 justify-center">
             <span className="font-mono text-lg text-[var(--alpha-text-primary)]">
@@ -191,14 +184,11 @@ export function Home() {
               [4 CONNECTIONS]
             </span>
           </div>
-
           <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-6 md:gap-8">
-            {/* Kolom Kiri */}
             <div className="space-y-4">
               {leftNodes.map((media, index) => {
                 const IconComponent = media.icon;
                 const delay = index * 150;
-                
                 return (
                   <a
                     key={media.name}
@@ -260,8 +250,6 @@ export function Home() {
                 );
               })}
             </div>
-
-            {/* Kolom Kanan */}
             <div className="space-y-4 md:mt-12">
               {rightNodes.map((media, index) => {
                 const IconComponent = media.icon;
@@ -331,8 +319,6 @@ export function Home() {
             </div>
           </div>
         </section>
-
-        {/* Terminal Footer */}
         <section className="py-8 border-t border-[var(--alpha-border)] mt-8">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div className="font-mono text-xs text-[var(--alpha-text-muted)]">

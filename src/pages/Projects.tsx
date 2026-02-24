@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useTheme } from '@/hooks/useTheme';
 import { ProjectCard } from '@/components/ProjectCard';
-import { projects, type Project } from '@/data/projects';
+import { projects, type Project } from '@/home/data/Projects';
 import { Grid3X3, List } from 'lucide-react';
 
 type CategoryFilter = 'All' | 'Finance' | 'Web3' | 'Infrastructure';
@@ -15,8 +15,6 @@ export function Projects() {
   const [statusFilter, setStatusFilter] = useState<StatusFilter>('All');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [isChanging, setIsChanging] = useState(false);
-  
-  // Typing effect for terminal command
   const [typedText, setTypedText] = useState('');
   const fullText = `projects.filter --category=${categoryFilter.toLowerCase()} --status=${statusFilter.toLowerCase()}`;
   
@@ -55,7 +53,6 @@ export function Projects() {
   return (
     <div className="page-transition min-h-screen pt-24 pb-16">
       <div className="section-container">
-        {/* Header */}
         <section className="py-8 animate-fade-in">
           <div className="flex items-center gap-3 mb-4">
             <span 
@@ -77,10 +74,8 @@ export function Projects() {
           </p>
         </section>
 
-        {/* Filters */}
         <section className="py-6 border-y border-alpha-border animate-fade-in" style={{ animationDelay: '100ms' }}>
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-            {/* Category Filter */}
             <div className="flex flex-wrap items-center gap-2">
               <span className="font-mono text-xs text-alpha-text-muted mr-2">
                 CATEGORY:
@@ -113,7 +108,6 @@ export function Projects() {
               ))}
             </div>
 
-            {/* Status Filter */}
             <div className="flex flex-wrap items-center gap-2">
               <span className="font-mono text-xs text-alpha-text-muted mr-2">
                 STATUS:
@@ -138,7 +132,6 @@ export function Projects() {
               ))}
             </div>
 
-            {/* View Mode Toggle */}
             <div className="flex items-center gap-2 p-1 rounded-lg" style={{ background: 'var(--alpha-bg-secondary)' }}>
               <button
                 onClick={() => setViewMode('grid')}
@@ -174,14 +167,12 @@ export function Projects() {
           </div>
         </section>
 
-        {/* Results Count */}
         <div className="py-4 animate-fade-in" style={{ animationDelay: '200ms' }}>
           <span className="font-mono text-xs text-alpha-text-muted">
             Showing <span className="text-alpha-neon font-bold">{filteredProjects.length}</span> of {projects.length} nodes
           </span>
         </div>
 
-        {/* Projects Grid/List */}
         <section className="py-6">
           <div 
             className={`transition-all duration-300 ${
@@ -218,7 +209,6 @@ export function Projects() {
           )}
         </section>
 
-        {/* Terminal Command Footer with Typing Effect */}
         <section className="py-8 border-t border-alpha-border animate-fade-in" style={{ animationDelay: '300ms' }}>
           <div className="font-mono text-xs">
             <span style={{ color: isDark ? '#00FF88' : '#2563EB' }}>$</span>{' '}

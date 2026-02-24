@@ -19,7 +19,7 @@ export const mediaLinks: MediaLink[] = [
   {
     id: 'x',
     platform: 'X',
-    handle: '@rinzx',
+    handle: '@rinzx_',
     description: 'Real-time updates, market analysis, and Web3 ecosystem discussions.',
     link: 'https://x.com/rinzx_',
     iconType: 'x',

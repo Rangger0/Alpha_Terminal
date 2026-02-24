@@ -87,8 +87,6 @@ community discussions on Telegram, and educational content on TikTok.
 Each node is monitored in real-time with live activity feeds and network statistics.
 All connections are encrypted and optimized for the best experience.
 Select any node below to establish a direct connection.`;
-
-  // Linux boot messages dengan delay bertingkat
   const bootMessages = [
     { text: '[ OK ] Started kernel.', delay: 3500 },
     { text: '[ OK ] Mounted /dev/sda1.', delay: 3800 },
@@ -99,21 +97,15 @@ Select any node below to establish a direct connection.`;
 
   return (
     <div className="page-transition min-h-screen pt-24 pb-16 relative overflow-hidden">
-      {/* Background Network Graph */}
       <div className="absolute inset-0 h-[800px] opacity-40 pointer-events-none">
         <NetworkGraph />
       </div>
 
       <div className="section-container relative z-10">
-        {/* TERMINAL - Paling Atas */}
         <section className="py-8">
           <MediaTerminal />
         </section>
-
-{/* SECTION: Command info + Live Feed (Grid) */}
 <div className="grid lg:grid-cols-3 gap-8 py-8 items-start">
-  
-  {/* KIRI: Title + Typewriter Description + Nyan Cat (2 cols) */}
   <div className="lg:col-span-2">
     <div className="flex items-center gap-3 mb-4 animate-in fade-in slide-in-from-left-4 duration-500">
       <span className="font-mono text-sm" style={{ color }}>$</span>
@@ -124,8 +116,6 @@ Select any node below to establish a direct connection.`;
     <h1 className="font-mono text-3xl md:text-4xl font-bold text-alpha-text-primary mb-4 animate-in fade-in slide-in-from-left-4 duration-500 delay-100">
       MEDIA_NODES
     </h1>
-    
-    {/* TYPEWRITER DESCRIPTION */}
     <div className="font-mono text-sm text-alpha-text-secondary max-w-2xl mb-6">
       <TypewriterText 
         text={descriptionText}
@@ -136,13 +126,9 @@ Select any node below to establish a direct connection.`;
         cursorChar="▋"
       />
     </div>
-
-    {/* NYAN CAT ANIMATION - DIPINDAH KE SINI (BAWAH DESCRIPTION) */}
     <div className="mb-6 animate-in fade-in slide-in-from-left-4 duration-500 delay-200">
       <NyanCatAnimation />
     </div>
-
-    {/* LINUX BOOT ANIMATION */}
     <div className="font-mono text-xs space-y-1 opacity-60 min-h-[120px]">
       {bootMessages.map((msg, idx) => (
         <TypewriterText 
@@ -157,17 +143,11 @@ Select any node below to establish a direct connection.`;
       ))}
     </div>
   </div>
-
-  {/* KANAN: Live Feed + Network Stats (1 col) - STICKY */}
   <div className="lg:col-span-1">
     <div className="sticky top-24 space-y-6">
-      
-      {/* LIVE FEED */}
       <div className="animate-in fade-in slide-in-from-right-4 duration-700">
         <ActivityTicker />
       </div>
-      
-      {/* NETWORK STATS */}
       <div 
         className="p-5 rounded-lg border animate-in fade-in slide-in-from-right-4 duration-700 delay-200"
         style={{ 
@@ -202,16 +182,14 @@ Select any node below to establish a direct connection.`;
               >
                 {stat.value}
               </span>
+                  </div>
+                  ))}
+               </div>
+              </div>
             </div>
-          ))}
-        </div>
-      </div>
-      
-    </div>
-  </div>
-</div>
+           </div>
+          </div>
 
-        {/* NODE CARDS - Full Width Below */}
         <div className="py-8">
           <div className="relative max-w-4xl">
             {mediaNodes.map((node, index) => (
@@ -231,7 +209,6 @@ Select any node below to establish a direct connection.`;
           </div>
         </div>
 
-        {/* FOOTER */}
         <section className="py-8 border-t border-alpha-border">
           <div className="font-mono text-xs text-alpha-text-muted flex items-center gap-2">
             <span style={{ color }}>$</span>
