@@ -1,243 +1,211 @@
-import { useState, useEffect } from 'react';
-import { useTheme } from '@/hooks/useTheme';
+import { useEffect, useState } from 'react';
+import { LayoutPanelTop, Sparkles } from 'lucide-react';
 import { ProjectCard } from '@/components/ProjectCard';
-import { projects, type Project } from '@/home/data/Projects';
-import { Grid3X3, List } from 'lucide-react';
+import { ScrollReveal } from '@/components/ScrollReveal';
+import { projects, roadmapPhases, type ProjectCategory, type ProjectStatus } from '@/home/data/Projects';
+import { useTheme } from '@/hooks/useTheme';
 
-type CategoryFilter = 'All' | 'Finance' | 'Web3' | 'Infrastructure';
-type StatusFilter = 'All' | 'Live' | 'Development' | 'Soon';
+type CategoryFilter = 'All' | ProjectCategory;
+type StatusFilter = 'All' | ProjectStatus;
+
+const categories: CategoryFilter[] = ['All', 'Finance', 'Airdrop', 'Intelligence', 'Infrastructure'];
+const statuses: StatusFilter[] = ['All', 'Live', 'Building', 'Roadmap'];
+
+function TypingCommand({ text, accent }: { text: string; accent: string }) {
+  const [visibleCount, setVisibleCount] = useState(0);
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setVisibleCount((current) => {
+        if (current >= text.length) {
+          window.clearInterval(timer);
+          return current;
+        }
+
+        return current + 1;
+      });
+    }, 26);
+
+    return () => window.clearInterval(timer);
+  }, [text]);
+
+  return (
+    <div className="font-mono text-xs text-alpha-text-muted">
+      <span style={{ color: accent }}>$</span> {text.slice(0, visibleCount)}
+      <span className="ml-1 inline-block h-4 w-2 animate-pulse" style={{ background: accent }} />
+    </div>
+  );
+}
 
 export function Projects() {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
-  
+  const accent = isDark ? '#67e8f9' : '#0f766e';
+
   const [categoryFilter, setCategoryFilter] = useState<CategoryFilter>('All');
   const [statusFilter, setStatusFilter] = useState<StatusFilter>('All');
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
-  const [isChanging, setIsChanging] = useState(false);
-  const [typedText, setTypedText] = useState('');
-  const fullText = `projects.filter --category=${categoryFilter.toLowerCase()} --status=${statusFilter.toLowerCase()}`;
-  
-  useEffect(() => {
-    setTypedText('');
-    let index = 0;
-    const timer = setInterval(() => {
-      if (index <= fullText.length) {
-        setTypedText(fullText.slice(0, index));
-        index++;
-      } else {
-        clearInterval(timer);
-      }
-    }, 30);
-    return () => clearInterval(timer);
-  }, [categoryFilter, statusFilter]);
 
-  const filteredProjects = projects.filter((project: Project) => {
+  const fullText = `showcase.filter --category=${categoryFilter.toLowerCase()} --status=${statusFilter.toLowerCase()}`;
+
+  const filteredProjects = projects.filter((project) => {
     const categoryMatch = categoryFilter === 'All' || project.category === categoryFilter;
     const statusMatch = statusFilter === 'All' || project.status === statusFilter;
     return categoryMatch && statusMatch;
   });
 
-  const handleFilterChange = (type: 'category' | 'status', value: string) => {
-    setIsChanging(true);
-    setTimeout(() => {
-      if (type === 'category') setCategoryFilter(value as CategoryFilter);
-      else setStatusFilter(value as StatusFilter);
-      setIsChanging(false);
-    }, 150);
-  };
-
-  const categories: CategoryFilter[] = ['All', 'Finance', 'Web3', 'Infrastructure'];
-  const statuses: StatusFilter[] = ['All', 'Live', 'Development', 'Soon'];
-
   return (
-    <div className="page-transition min-h-screen pt-24 pb-16">
-      <div className="section-container">
-        <section className="py-8 animate-fade-in">
-          <div className="flex items-center gap-3 mb-4">
-            <span 
-              className="font-mono text-sm animate-pulse"
-              style={{ color: isDark ? '#00FF88' : '#2563EB' }}
-            >
-              $
+    <div className="page-transition min-h-screen pb-16 pt-28">
+      <div className="section-container space-y-10 md:space-y-12">
+        <ScrollReveal delay={40}>
+        <section className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="space-y-5">
+            <span className="alpha-chip">
+              <Sparkles className="h-4 w-4" style={{ color: accent }} />
+              project vault
             </span>
-            <span className="font-mono text-sm text-alpha-text-muted typing-effect">
-              projects.list --all
-            </span>
+            <div>
+              <p className="alpha-kicker">Premium build collection</p>
+              <h1 className="mt-2 text-4xl font-semibold text-alpha-text-primary md:text-6xl">Projects that reflect the actual workflow.</h1>
+            </div>
+            <p className="max-w-2xl text-base leading-8 text-alpha-text-secondary">
+              Saya tambahkan preview visual, README-style notes, dan roadmap di setiap card supaya halaman project terasa lebih
+              kaya dan lebih jujur terhadap apa yang sedang dibangun.
+            </p>
           </div>
-          <h1 className="font-mono text-3xl md:text-4xl font-bold text-alpha-text-primary mb-4 tracking-tight">
-            PROJECT NODES
-          </h1>
-          <p className="text-alpha-text-secondary max-w-2xl leading-relaxed">
-            Daftar semua node sistem ALPHA_TERMINAL. Setiap node merepresentasikan modul 
-            independen yang saling terintegrasi dalam ekosistem Web3.
-          </p>
-        </section>
 
-        <section className="py-6 border-y border-alpha-border animate-fade-in" style={{ animationDelay: '100ms' }}>
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="font-mono text-xs text-alpha-text-muted mr-2">
-                CATEGORY:
-              </span>
-              {categories.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => handleFilterChange('category', cat)}
-                  className="relative px-3 py-1.5 rounded font-mono text-xs transition-all duration-300 overflow-hidden group"
-                  style={{
-                    color: categoryFilter === cat ? (isDark ? '#0a0a0a' : '#ffffff') : 'var(--alpha-text-secondary)',
-                    background: categoryFilter === cat 
-                      ? (isDark ? '#00FF88' : '#2563EB') 
-                      : 'transparent',
-                    border: `1px solid ${categoryFilter === cat 
-                      ? (isDark ? '#00FF88' : '#2563EB') 
-                      : 'var(--alpha-border)'}`,
-                  }}
-                >
-                  <span className="relative z-10">{cat}</span>
-                  {categoryFilter === cat && (
-                    <span 
-                      className="absolute inset-0 animate-pulse opacity-50"
-                      style={{
-                        background: isDark ? '#00FF88' : '#2563EB',
-                      }}
-                    />
-                  )}
-                </button>
-              ))}
+          <div className="glass-panel p-6 md:p-7">
+            <p className="font-mono text-[11px] uppercase tracking-[0.18em]" style={{ color: accent }}>
+              readme.md
+            </p>
+            <div className="mt-5 space-y-4 text-sm leading-8 text-alpha-text-secondary">
+              <p>
+                Alpha Terminal bukan template portfolio biasa. Halaman ini menggabungkan project preview, catatan fungsi, dan
+                arah pengembangan supaya visitor langsung paham value setiap build.
+              </p>
+              <p>
+                Fokus utamanya tetap sama: Web3 execution, airdrop intelligence, dan finance notes yang bisa tumbuh menjadi
+                operating system pribadi.
+              </p>
             </div>
-
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="font-mono text-xs text-alpha-text-muted mr-2">
-                STATUS:
-              </span>
-              {statuses.map((status) => (
-                <button
-                  key={status}
-                  onClick={() => handleFilterChange('status', status)}
-                  className="relative px-3 py-1.5 rounded font-mono text-xs transition-all duration-300 overflow-hidden"
-                  style={{
-                    color: statusFilter === status ? (isDark ? '#0a0a0a' : '#ffffff') : 'var(--alpha-text-secondary)',
-                    background: statusFilter === status 
-                      ? (isDark ? '#00FF88' : '#2563EB') 
-                      : 'transparent',
-                    border: `1px solid ${statusFilter === status 
-                      ? (isDark ? '#00FF88' : '#2563EB') 
-                      : 'var(--alpha-border)'}`,
-                  }}
-                >
-                  <span className="relative z-10">{status}</span>
-                </button>
-              ))}
-            </div>
-
-            <div className="flex items-center gap-2 p-1 rounded-lg" style={{ background: 'var(--alpha-bg-secondary)' }}>
-              <button
-                onClick={() => setViewMode('grid')}
-                className="relative p-2 rounded transition-all duration-300"
-                style={{ 
-                  color: viewMode === 'grid' ? (isDark ? '#00FF88' : '#2563EB') : 'var(--alpha-text-muted)',
-                }}
-              >
-                {viewMode === 'grid' && (
-                  <span 
-                    className="absolute inset-0 rounded bg-alpha-card border transition-all duration-300"
-                    style={{ borderColor: isDark ? '#00FF8830' : '#2563EB30' }}
-                  />
-                )}
-                <Grid3X3 className="w-4 h-4 relative z-10" />
-              </button>
-              <button
-                onClick={() => setViewMode('list')}
-                className="relative p-2 rounded transition-all duration-300"
-                style={{ 
-                  color: viewMode === 'list' ? (isDark ? '#00FF88' : '#2563EB') : 'var(--alpha-text-muted)',
-                }}
-              >
-                {viewMode === 'list' && (
-                  <span 
-                    className="absolute inset-0 rounded bg-alpha-card border transition-all duration-300"
-                    style={{ borderColor: isDark ? '#00FF8830' : '#2563EB30' }}
-                  />
-                )}
-                <List className="w-4 h-4 relative z-10" />
-              </button>
+            <div className="mt-6 grid gap-3 md:grid-cols-2">
+              <div className="rounded-[1.3rem] border border-alpha-border px-4 py-4">
+                <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-alpha-text-muted">Total nodes</p>
+                <p className="mt-2 text-3xl font-semibold text-alpha-text-primary">{projects.length}</p>
+              </div>
+              <div className="rounded-[1.3rem] border border-alpha-border px-4 py-4">
+                <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-alpha-text-muted">Live today</p>
+                <p className="mt-2 text-3xl font-semibold text-alpha-text-primary">{projects.filter((project) => project.status === 'Live').length}</p>
+              </div>
             </div>
           </div>
         </section>
+        </ScrollReveal>
 
-        <div className="py-4 animate-fade-in" style={{ animationDelay: '200ms' }}>
-          <span className="font-mono text-xs text-alpha-text-muted">
-            Showing <span className="text-alpha-neon font-bold">{filteredProjects.length}</span> of {projects.length} nodes
-          </span>
-        </div>
+        <ScrollReveal variant="left" delay={70}>
+        <section className="glass-panel p-5 md:p-6">
+          <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-alpha-text-muted">Category</span>
+              {categories.map((category) => {
+                const active = categoryFilter === category;
 
-        <section className="py-6">
-          <div 
-            className={`transition-all duration-300 ${
-              isChanging ? 'opacity-0 transform scale-95' : 'opacity-100 transform scale-100'
-            } ${
-              viewMode === 'grid' 
-                ? 'grid md:grid-cols-2 lg:grid-cols-3 gap-6' 
-                : 'flex flex-col gap-4'
-            }`}
-          >
-            {filteredProjects.map((project, index) => (
-              <ProjectCard
-                key={project.id}
-                nodeId={project.nodeId}
-                name={project.name}
-                category={project.category}
-                status={project.status}
-                description={project.description}
-                link={project.link}
-                index={index}
-              />
+                return (
+                  <button
+                    key={category}
+                    type="button"
+                    onClick={() => setCategoryFilter(category)}
+                    className="rounded-full px-4 py-2 font-mono text-xs uppercase tracking-[0.18em] transition-all"
+                    style={{
+                      color: active ? '#04111f' : 'var(--alpha-text-secondary)',
+                      background: active ? accent : 'transparent',
+                      border: `1px solid ${active ? accent : 'var(--alpha-border)'}`,
+                    }}
+                  >
+                    {category}
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-alpha-text-muted">Status</span>
+              {statuses.map((status) => {
+                const active = statusFilter === status;
+
+                return (
+                  <button
+                    key={status}
+                    type="button"
+                    onClick={() => setStatusFilter(status)}
+                    className="rounded-full px-4 py-2 font-mono text-xs uppercase tracking-[0.18em] transition-all"
+                    style={{
+                      color: active ? '#04111f' : 'var(--alpha-text-secondary)',
+                      background: active ? accent : 'transparent',
+                      border: `1px solid ${active ? accent : 'var(--alpha-border)'}`,
+                    }}
+                  >
+                    {status}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="mt-5 flex items-center gap-2 font-mono text-xs text-alpha-text-muted">
+            <LayoutPanelTop className="h-4 w-4" style={{ color: accent }} />
+            showing {filteredProjects.length} of {projects.length} project nodes
+          </div>
+        </section>
+        </ScrollReveal>
+
+        <ScrollReveal variant="right" delay={90}>
+        <section className="grid gap-6">
+          {filteredProjects.map((project, index) => (
+            <ProjectCard key={project.id} project={project} index={index} />
+          ))}
+        </section>
+        </ScrollReveal>
+
+        {filteredProjects.length === 0 && (
+          <ScrollReveal delay={100}>
+          <section className="glass-panel p-8 text-center">
+            <p className="text-lg font-semibold text-alpha-text-primary">Tidak ada project yang cocok dengan filter ini.</p>
+            <p className="mt-2 text-sm text-alpha-text-secondary">Coba ubah kategori atau status untuk melihat node lain.</p>
+          </section>
+          </ScrollReveal>
+        )}
+
+        <ScrollReveal delay={110}>
+        <section className="glass-panel p-6 md:p-8">
+          <p className="alpha-kicker">Roadmap</p>
+          <h2 className="mt-2 text-3xl font-semibold text-alpha-text-primary">Arah perluasan Alpha Terminal</h2>
+          <div className="mt-6 grid gap-4 xl:grid-cols-3">
+            {roadmapPhases.map((phase) => (
+              <div key={phase.id} className="rounded-[1.4rem] border border-alpha-border px-5 py-5">
+                <p className="font-mono text-[11px] uppercase tracking-[0.18em]" style={{ color: accent }}>
+                  phase {phase.id} / {phase.title}
+                </p>
+                <h3 className="mt-3 text-2xl font-semibold text-alpha-text-primary">{phase.description}</h3>
+                <div className="mt-4 space-y-2">
+                  {phase.items.map((item) => (
+                    <div key={item} className="flex items-start gap-3">
+                      <span className="mt-2 h-1.5 w-1.5 rounded-full" style={{ background: accent }} />
+                      <p className="text-sm leading-7 text-alpha-text-secondary">{item}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
             ))}
           </div>
-
-          {filteredProjects.length === 0 && (
-            <div className="text-center py-16 animate-fade-in">
-              <p className="font-mono text-alpha-text-muted text-lg mb-2">
-                No nodes match the selected filters.
-              </p>
-              <p className="font-mono text-alpha-text-muted text-sm opacity-60">
-                Try adjusting your filter criteria.
-              </p>
-            </div>
-          )}
         </section>
+        </ScrollReveal>
 
-        <section className="py-8 border-t border-alpha-border animate-fade-in" style={{ animationDelay: '300ms' }}>
-          <div className="font-mono text-xs">
-            <span style={{ color: isDark ? '#00FF88' : '#2563EB' }}>$</span>{' '}
-            <span className="text-alpha-text-muted">{typedText}</span>
-            <span className="inline-block w-2 h-4 ml-1 animate-pulse" style={{ 
-              background: isDark ? '#00FF88' : '#2563EB',
-              opacity: 0.7,
-            }} />
-          </div>
+        <ScrollReveal variant="left" delay={60}>
+        <section className="border-t border-alpha-border pt-6">
+          <TypingCommand key={fullText} text={fullText} accent={accent} />
         </section>
+        </ScrollReveal>
       </div>
-
-      <style>{`
-        @keyframes fade-in {
-          from { opacity: 0; transform: translateY(10px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fade-in {
-          animation: fade-in 0.6s ease-out forwards;
-        }
-        .typing-effect::after {
-          content: '|';
-          animation: blink 1s infinite;
-        }
-        @keyframes blink {
-          0%, 50% { opacity: 1; }
-          51%, 100% { opacity: 0; }
-        }
-      `}</style>
     </div>
   );
 }

@@ -17,7 +17,7 @@ const commands = [
   },
   {
     cmd: 'contact --email',
-    output: 'rangger@alpha-terminal.dev'
+    output: 'allgazali011@gmail.com'
   }
 ];
 

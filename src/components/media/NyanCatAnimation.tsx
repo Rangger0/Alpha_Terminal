@@ -1,6 +1,27 @@
 import { useEffect, useState } from 'react';
 import { useTheme } from '@/hooks/useTheme';
 
+const bootMessages = [
+  '[ OK ] Started kernel.',
+  '[ OK ] Mounted /dev/sda1.',
+  '[ OK ] Started Network Manager.',
+  '[ OK ] Reached target Network.',
+  '[ OK ] Started Alpha Terminal daemon.',
+];
+
+const getFrame = (offset: number) => `
+${'  '.repeat(offset)}🟥🟧🟨🟩🟦⬛
+${'  '.repeat(offset)}    /\\_/\\  
+${'  '.repeat(offset)}   ( o.o ) 
+${'  '.repeat(offset)}    > ^ <  `;
+
+const nyanFrames = [
+  getFrame(0),
+  getFrame(1),
+  getFrame(2),
+  getFrame(1),
+];
+
 export function NyanCatAnimation() {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
@@ -10,32 +31,10 @@ export function NyanCatAnimation() {
   const [showBoot, setShowBoot] = useState(true);
   const [bootLines, setBootLines] = useState(0);
 
-  const bootMessages = [
-    '[ OK ] Started kernel.',
-    '[ OK ] Mounted /dev/sda1.',
-    '[ OK ] Started Network Manager.',
-    '[ OK ] Reached target Network.',
-    '[ OK ] Started ALPHA_TERMINAL daemon.',
-  ];
-
-  // Frame dengan posisi rainbow berbeda
-  const getFrame = (offset: number) => `
-${'  '.repeat(offset)}🟥🟧🟨🟩🟦⬛
-${'  '.repeat(offset)}    /\\_/\\  
-${'  '.repeat(offset)}   ( o.o ) 
-${'  '.repeat(offset)}    > ^ <  `;
-
-  const nyanFrames = [
-    getFrame(0),
-    getFrame(1),
-    getFrame(2),
-    getFrame(1),
-  ];
-
   useEffect(() => {
     bootMessages.forEach((_, index) => {
       setTimeout(() => {
-        setBootLines(prev => prev + 1);
+        setBootLines((prev) => prev + 1);
       }, 500 + (index * 300));
     });
 
@@ -44,7 +43,7 @@ ${'  '.repeat(offset)}    > ^ <  `;
     }, 2500);
 
     const interval = setInterval(() => {
-      setFrame(prev => (prev + 1) % nyanFrames.length);
+      setFrame((prev) => (prev + 1) % nyanFrames.length);
     }, 250);
 
     return () => clearInterval(interval);
@@ -75,9 +74,9 @@ ${'  '.repeat(offset)}    > ^ <  `;
       
       {/* Info Panel (ala neofetch) */}
       <div className="font-mono text-[10px] space-y-0.5 pt-1">
-        <div style={{ color }} className="font-bold">AlPHA_TERMINAL</div>
+        <div style={{ color }} className="font-bold">ALPHA TERMINAL</div>
         <div className="text-alpha-text-muted">----------------</div>
-        <div><span className="text-alpha-text-secondary">OS:</span> ALPHA_TERMINAL v2.0.1</div>
+        <div><span className="text-alpha-text-secondary">OS:</span> Alpha Terminal v2.0.1</div>
         <div><span className="text-alpha-text-secondary">Host:</span> x86_64</div>
         <div><span className="text-alpha-text-secondary">Kernel:</span> 5.15.0-nyan</div>
         <div><span className="text-alpha-text-secondary">Uptime:</span> 99.9%</div>

@@ -1,178 +1,162 @@
+import { ArrowUpRight, FileText, Flag } from 'lucide-react';
 import { useTheme } from '@/hooks/useTheme';
-import { ExternalLink } from 'lucide-react';
-import { useState } from 'react';
+import type { Project } from '@/home/data/Projects';
 
 interface ProjectCardProps {
-  nodeId: string;
-  name: string;
-  category: string;
-  status: 'Live' | 'Development' | 'Planned' | 'Soon';
-  description: string;
-  link?: string;
+  project: Project;
   index?: number;
 }
 
-export function ProjectCard({ 
-  nodeId, 
-  name, 
-  category, 
-  status, 
-  description, 
-  link,
-  index = 0 
-}: ProjectCardProps) {
+const statusTone: Record<Project['status'], string> = {
+  Live: '#10b981',
+  Building: '#67e8f9',
+  Roadmap: '#f5c26b',
+};
+
+export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
-  const [isHovered, setIsHovered] = useState(false);
-
-  const statusColors = {
-    Live: isDark ? '#00FF88' : '#22c55e',
-    Development: isDark ? '#fbbf24' : '#f59e0b',
-    Planned: isDark ? '#60a5fa' : '#3b82f6',
-    Soon: isDark ? '#a78bfa' : '#8b5cf6',
-  };
+  const borderTone = `${project.accent}44`;
 
   return (
-    <div
-      className="group relative"
+    <article
+      className="terminal-card overflow-hidden"
       style={{
-        animation: `fade-in-up 0.01s ease-out ${index * 10}ms both`,
+        animation: `page-enter 0.45s ease-out ${index * 80}ms both`,
       }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Glow effect - simplified */}
-      <div 
-        className="absolute inset-0 rounded-xl transition-all duration-300"
-        style={{
-          background: `radial-gradient(circle at 50% 50%, ${statusColors[status]}15, transparent 70%)`,
-          opacity: isHovered ? 1 : 0,
-          filter: 'blur(15px)',
-          transform: isHovered ? 'scale(1.05)' : 'scale(1)',
-        }}
-      />
-
-      <div
-        className="relative overflow-hidden rounded-xl border bg-alpha-card/50 backdrop-blur-sm transition-all duration-300"
-        style={{
-          borderColor: isHovered ? statusColors[status] : 'var(--alpha-border)',
-          boxShadow: isHovered 
-            ? `0 10px 40px -10px ${statusColors[status]}30, 0 0 0 1px ${statusColors[status]}20` 
-            : '0 4px 20px -5px rgba(0, 0, 0, 0.07)',
-          transform: isHovered ? 'translateY(-4px)' : 'translateY(0)',
-        }}
-      >
-        {/* Subtle gradient overlay on hover */}
-        <div 
-          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+      <div className="relative p-5 md:p-6">
+        <div
+          className="relative overflow-hidden rounded-[1.4rem] border p-5 md:p-6"
           style={{
-            background: `linear-gradient(135deg, ${statusColors[status]}05 0%, transparent 50%)`,
+            borderColor: borderTone,
+            background: `linear-gradient(135deg, ${project.accent}1f 0%, transparent 58%), ${isDark ? 'rgba(10, 16, 32, 0.92)' : 'rgba(255, 255, 255, 0.92)'}`,
           }}
-        />
+        >
+          <div
+            className="absolute inset-y-0 right-0 w-1/2 opacity-60"
+            style={{
+              background: `radial-gradient(circle at center, ${project.accent}24 0%, transparent 62%)`,
+            }}
+          />
 
-        <div className="relative p-6 flex flex-col h-full">
-          {/* Header */}
-          <div className="flex items-start justify-between mb-4">
-            <div className="flex items-center gap-3">
-              <span 
-                className="font-mono text-xs px-2 py-1 rounded transition-colors duration-300"
-                style={{
-                  background: isHovered 
-                    ? (isDark ? `${statusColors[status]}20` : `${statusColors[status]}10`)
-                    : (isDark ? 'rgba(0,0,0,0.5)' : 'rgba(0,0,0,0.05)'),
-                  color: isDark ? '#00FF88' : '#2563EB',
-                  border: `1px solid ${isDark ? '#00FF8830' : '#2563EB30'}`,
-                }}
-              >
-                {nodeId}
+          <div className="relative flex items-start justify-between gap-3">
+            <div>
+              <span className="alpha-chip" style={{ color: project.accent, borderColor: borderTone }}>
+                {project.nodeId}
               </span>
-              
-              {/* Status with pulse for Live */}
-              <div className="flex items-center gap-2">
-                {status === 'Live' && (
-                  <span className="relative flex h-2 w-2">
-                    <span 
-                      className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75"
-                      style={{ backgroundColor: statusColors[status] }}
-                    />
-                    <span 
-                      className="relative inline-flex rounded-full h-2 w-2"
-                      style={{ backgroundColor: statusColors[status] }}
-                    />
-                  </span>
-                )}
-                <span 
-                  className="font-mono text-xs transition-colors duration-300"
-                  style={{ color: statusColors[status] }}
-                >
-                  {status}
-                </span>
-              </div>
+              <p className="mt-4 font-mono text-[11px] uppercase tracking-[0.2em]" style={{ color: project.accent }}>
+                {project.coverLabel}
+              </p>
+              <h3 className="mt-3 text-2xl font-semibold text-alpha-text-primary md:text-[2rem]">{project.name}</h3>
+              <p className="mt-3 max-w-xl text-sm leading-7 text-alpha-text-secondary">{project.summary}</p>
             </div>
 
-            <span 
-              className="font-mono text-xs text-alpha-text-muted transition-all duration-300"
-              style={{ 
-                opacity: isHovered ? 1 : 0.6,
-                transform: isHovered ? 'translateX(0)' : 'translateX(5px)',
-              }}
-            >
-              {category}
-            </span>
+            <div className="flex flex-col items-end gap-2">
+              <span
+                className="rounded-full px-3 py-1 font-mono text-[11px] uppercase tracking-[0.18em]"
+                style={{
+                  background: `${statusTone[project.status]}18`,
+                  color: statusTone[project.status],
+                }}
+              >
+                {project.status}
+              </span>
+              <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-alpha-text-muted">{project.category}</span>
+            </div>
           </div>
 
-          {/* Title */}
-          <h3 
-            className="font-mono text-xl font-bold mb-3 transition-all duration-300"
-            style={{
-              color: isDark ? '#ffffff' : '#1a1a1a',
-              transform: isHovered ? 'translateX(4px)' : 'translateX(0)',
-            }}
-          >
-            {name}
-          </h3>
-
-          {/* Description */}
-          <p className="text-alpha-text-secondary text-sm mb-6 flex-grow leading-relaxed transition-opacity duration-300"
-             style={{ opacity: isHovered ? 0.9 : 0.7 }}
-          >
-            {description}
-          </p>
-
-          {/* Launch Link */}
-          {link && (
-            <a
-              href={link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 font-mono text-sm group/link w-fit"
-              style={{ color: statusColors[status] }}
-            >
-              <span className="relative">
-                Launch
-                <span 
-                  className="absolute -bottom-0.5 left-0 w-0 h-0.5 group-hover/link:w-full transition-all duration-300"
-                  style={{ backgroundColor: statusColors[status] }}
-                />
-              </span>
-              <ExternalLink className="w-4 h-4 transition-transform duration-300 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
-            </a>
-          )}
+          <div className="relative mt-8 grid gap-3 md:grid-cols-3">
+            {project.coverStats.map((stat) => (
+              <div
+                key={stat.label}
+                className="rounded-2xl border p-3"
+                style={{
+                  borderColor: borderTone,
+                  background: isDark ? 'rgba(7, 12, 24, 0.68)' : 'rgba(255, 255, 255, 0.72)',
+                }}
+              >
+                <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-alpha-text-muted">{stat.label}</p>
+                <p className="mt-2 text-sm font-medium text-alpha-text-primary">{stat.value}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
-      <style>{`
-        @keyframes fade-in-up {
-          from { 
-            opacity: 0; 
-            transform: translateY(15px); 
-          }
-          to { 
-            opacity: 1; 
-            transform: translateY(0); 
-          }
-        }
-      `}</style>
-    </div>
+      <div className="grid gap-6 border-t border-alpha-border px-5 pb-6 pt-5 md:px-6 lg:grid-cols-[1.05fr_0.95fr]">
+        <div>
+          <p className="alpha-kicker">Overview</p>
+          <p className="mt-3 text-sm leading-7 text-alpha-text-secondary">{project.description}</p>
+
+          <div className="mt-5 flex flex-wrap gap-2">
+            {project.stack.map((item) => (
+              <span
+                key={item}
+                className="rounded-full border border-alpha-border px-3 py-1 font-mono text-[11px] uppercase tracking-[0.12em] text-alpha-text-secondary"
+              >
+                {item}
+              </span>
+            ))}
+          </div>
+
+          {project.link ? (
+            <a
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-6 inline-flex items-center gap-2 rounded-full border border-alpha-border px-4 py-2 font-mono text-xs uppercase tracking-[0.18em] text-alpha-text-primary transition-transform hover:-translate-y-0.5"
+            >
+              Open live build
+              <ArrowUpRight className="h-4 w-4" style={{ color: project.accent }} />
+            </a>
+          ) : (
+            <span className="mt-6 inline-flex items-center gap-2 rounded-full border border-alpha-border px-4 py-2 font-mono text-xs uppercase tracking-[0.18em] text-alpha-text-muted">
+              Private build / not public yet
+            </span>
+          )}
+        </div>
+
+        <div className="space-y-5">
+          <div>
+            <div className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em]" style={{ color: project.accent }}>
+              <FileText className="h-4 w-4" />
+              README
+            </div>
+            <div className="mt-3 space-y-2">
+              {project.readme.map((item) => (
+                <div key={item} className="flex items-start gap-3">
+                  <span className="mt-2 h-1.5 w-1.5 rounded-full" style={{ background: project.accent }} />
+                  <p className="text-sm leading-7 text-alpha-text-secondary">{item}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <div className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em]" style={{ color: project.accent }}>
+              <Flag className="h-4 w-4" />
+              Roadmap
+            </div>
+            <div className="mt-3 space-y-3">
+              {project.roadmap.map((item, roadmapIndex) => (
+                <div key={item} className="flex items-start gap-3">
+                  <span
+                    className="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full font-mono text-[10px]"
+                    style={{
+                      background: `${project.accent}20`,
+                      color: project.accent,
+                    }}
+                  >
+                    0{roadmapIndex + 1}
+                  </span>
+                  <p className="text-sm leading-7 text-alpha-text-secondary">{item}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
   );
 }

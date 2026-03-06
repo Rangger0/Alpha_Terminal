@@ -1,221 +1,184 @@
+import { ArrowUpRight, Github, Send, Twitter } from 'lucide-react';
 import { useTheme } from '@/hooks/useTheme';
-import { Github, Twitter, Send, Activity, Users, GitCommit, Hash } from 'lucide-react';
-import { MediaTerminal } from '@/components/media/MediaTerminal';
-import { NodeCard } from '@/components/media/NodeCard';
-import { NetworkGraph } from '@/components/media/NetworkGraph';
 import { ActivityTicker } from '@/components/media/ActivityTicker';
-import { TypewriterText } from '@/components/media/TypewriterText';
-import { NyanCatAnimation } from '@/components/media/NyanCatAnimation';
+import { ScrollReveal } from '@/components/ScrollReveal';
 
 const TikTokIcon = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
   </svg>
 );
 
-interface MediaNode {
-  id: string;
-  name: string;
-  icon: React.ReactNode;
-  handle: string;
-  url: string;
-  description: string;
-  stats: { label: string; value: string; icon: React.ReactNode }[];
-}
+const channels = [
+  {
+    id: '01',
+    title: 'GitHub',
+    handle: '@Rangger0',
+    href: 'https://github.com/Rangger0',
+    description: 'Tempat paling pas untuk lihat build, struktur project, dan eksperimen UI yang saya kerjakan.',
+    bestFor: 'Code and release notes',
+    tempo: 'Product-focused',
+    icon: Github,
+  },
+  {
+    id: '02',
+    title: 'X',
+    handle: '@rinzx_',
+    href: 'https://x.com/rinzx_',
+    description: 'Untuk update cepat, observasi Web3, dan potongan thought process yang lebih real-time.',
+    bestFor: 'Fast signal',
+    tempo: 'Realtime',
+    icon: Twitter,
+  },
+  {
+    id: '03',
+    title: 'Telegram',
+    handle: 'Alpha Community',
+    href: 'https://t.me/+MGzRobr9cp4yMTk1',
+    description: 'Kanal yang lebih dekat untuk ngobrol, share update, dan bangun audience yang relevan.',
+    bestFor: 'Community flow',
+    tempo: 'Conversational',
+    icon: Send,
+  },
+  {
+    id: '04',
+    title: 'TikTok',
+    handle: '@rinzzx0',
+    href: 'https://www.tiktok.com/@rinzzx0',
+    description: 'Ruang untuk format pendek: tutorial, vibe, dan highlight dari workflow yang lagi dijalankan.',
+    bestFor: 'Short-form content',
+    tempo: 'Visual',
+    icon: TikTokIcon,
+  },
+];
+
+const mediaNotes = [
+  {
+    title: 'Code first',
+    description: 'Kalau ingin nilai teknis, mulai dari GitHub dan halaman projects.',
+  },
+  {
+    title: 'Signal next',
+    description: 'Untuk konteks cepat dan pengamatan sehari-hari, X lebih cocok.',
+  },
+  {
+    title: 'Community layer',
+    description: 'Telegram dan TikTok dipakai untuk bentuk hubungan yang lebih dekat dan santai.',
+  },
+];
 
 export function Media() {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
-
-  const mediaNodes: MediaNode[] = [
-    {
-      id: '01',
-      name: 'GitHub',
-      icon: <Github className="w-6 h-6" />,
-      handle: '@Rangger0',
-      url: 'https://github.com/Rangger0',
-      description: 'Open source contributions, project repositories, and code experiments.',
-      stats: [
-        { label: 'repos', value: '12', icon: <GitCommit className="w-3 h-3" /> },
-        { label: 'stars', value: '48', icon: <Activity className="w-3 h-3" /> },
-      ],
-    },
-    {
-      id: '02',
-      name: 'X (Twitter)',
-      icon: <Twitter className="w-6 h-6" />,
-      handle: '@rinzx',
-      url: 'https://x.com/rinzx_',
-      description: 'Real-time updates, alpha calls, and community discussions.',
-      stats: [
-        { label: 'followers', value: '1.2K', icon: <Users className="w-3 h-3" /> },
-        { label: 'tweets', value: '342', icon: <Hash className="w-3 h-3" /> },
-      ],
-    },
-    {
-      id: '03',
-      name: 'Telegram',
-      icon: <Send className="w-6 h-6" />,
-      handle: 'ALPHA Community',
-      url: 'https://t.me/+MGzRobr9cp4yMTk1',
-      description: 'Join the community for alpha calls, discussions, and early access updates.',
-      stats: [
-        { label: 'members', value: '856', icon: <Users className="w-3 h-3" /> },
-        { label: 'online', value: '124', icon: <Activity className="w-3 h-3" /> },
-      ],
-    },
-    {
-      id: '04',
-      name: 'TikTok',
-      icon: <TikTokIcon className="w-6 h-6" />,
-      handle: '@rinzzx0',
-      url: 'https://tiktok.com/@rinzzx0',
-      description: 'Short-form content, tutorials, and behind-the-scenes updates.',
-      stats: [
-        { label: 'followers', value: '2.4K', icon: <Users className="w-3 h-3" /> },
-        { label: 'likes', value: '12K', icon: <Activity className="w-3 h-3" /> },
-      ],
-    },
-  ];
-
-  const color = isDark ? '#00FF88' : '#2563EB';
-
-  const descriptionText =  `Welcome to the media hub of ALPHA_TERMINAL.
-This interface aggregates all external communication channels into a unified dashboard.
-Connect with me across multiple platforms - from code repositories on GitHub to real-time updates on X,
-community discussions on Telegram, and educational content on TikTok.
-Each node is monitored in real-time with live activity feeds and network statistics.
-All connections are encrypted and optimized for the best experience.
-Select any node below to establish a direct connection.`;
-  const bootMessages = [
-    { text: '[ OK ] Started kernel.', delay: 3500 },
-    { text: '[ OK ] Mounted /dev/sda1.', delay: 3800 },
-    { text: '[ OK ] Started Network Manager.', delay: 4100 },
-    { text: '[ OK ] Reached target Network.', delay: 4400 },
-    { text: '[ OK ] Started ALPHA_TERMINAL daemon.', delay: 4700, showCursor: true },
-  ];
+  const accent = isDark ? '#67e8f9' : '#0f766e';
 
   return (
-    <div className="page-transition min-h-screen pt-24 pb-16 relative overflow-hidden">
-      <div className="absolute inset-0 h-[800px] opacity-40 pointer-events-none">
-        <NetworkGraph />
-      </div>
+    <div className="page-transition min-h-screen pb-16 pt-28">
+      <div className="section-container space-y-10 md:space-y-12">
+        <ScrollReveal delay={40}>
+        <section className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
+          <div className="glass-panel p-6 md:p-8">
+            <span className="alpha-chip">
+              <span className="h-2 w-2 rounded-full bg-emerald-400" />
+              media room / active
+            </span>
+            <p className="alpha-kicker mt-6">External presence</p>
+            <h1 className="mt-2 text-4xl font-semibold text-alpha-text-primary md:text-6xl">Satu brand, beberapa jalur komunikasi.</h1>
+            <p className="mt-5 max-w-2xl text-base leading-8 text-alpha-text-secondary">
+              Halaman ini saya rapikan supaya jadi hub yang lebih premium. Setiap kanal punya fungsi yang berbeda: code,
+              real-time signal, community, atau short-form content.
+            </p>
 
-      <div className="section-container relative z-10">
-        <section className="py-8">
-          <MediaTerminal />
-        </section>
-<div className="grid lg:grid-cols-3 gap-8 py-8 items-start">
-  <div className="lg:col-span-2">
-    <div className="flex items-center gap-3 mb-4 animate-in fade-in slide-in-from-left-4 duration-500">
-      <span className="font-mono text-sm" style={{ color }}>$</span>
-      <span className="font-mono text-sm text-alpha-text-muted">
-        media.nodes --list
-      </span>
-    </div>
-    <h1 className="font-mono text-3xl md:text-4xl font-bold text-alpha-text-primary mb-4 animate-in fade-in slide-in-from-left-4 duration-500 delay-100">
-      MEDIA_NODES
-    </h1>
-    <div className="font-mono text-sm text-alpha-text-secondary max-w-2xl mb-6">
-      <TypewriterText 
-        text={descriptionText}
-        speed={40}
-        delay={500}
-        className="block whitespace-pre-line leading-relaxed"
-        showCursor={true}
-        cursorChar="▋"
-      />
-    </div>
-    <div className="mb-6 animate-in fade-in slide-in-from-left-4 duration-500 delay-200">
-      <NyanCatAnimation />
-    </div>
-    <div className="font-mono text-xs space-y-1 opacity-60 min-h-[120px]">
-      {bootMessages.map((msg, idx) => (
-        <TypewriterText 
-          key={idx}
-          text={msg.text}
-          speed={20}
-          delay={msg.delay}
-          className="block"
-          showCursor={msg.showCursor || false}
-          cursorChar="_"
-        />
-      ))}
-    </div>
-  </div>
-  <div className="lg:col-span-1">
-    <div className="sticky top-24 space-y-6">
-      <div className="animate-in fade-in slide-in-from-right-4 duration-700">
-        <ActivityTicker />
-      </div>
-      <div 
-        className="p-5 rounded-lg border animate-in fade-in slide-in-from-right-4 duration-700 delay-200"
-        style={{ 
-          borderColor: isDark ? 'rgba(0, 255, 136, 0.2)' : 'rgba(37, 99, 235, 0.2)',
-          background: isDark ? 'rgba(2, 6, 23, 0.8)' : 'rgba(248, 250, 252, 0.8)',
-        }}
-      >
-        <h4 
-          className="font-mono text-xs font-bold mb-4 pb-2 border-b"
-          style={{ 
-            color,
-            borderColor: isDark ? 'rgba(0, 255, 136, 0.2)' : 'rgba(37, 99, 235, 0.2)',
-          }}
-        >
-          NETWORK_STATS
-        </h4>
-        <div className="space-y-3 font-mono text-xs">
-          {[
-            { label: 'Total Nodes', value: '4', highlight: false },
-            { label: 'Online', value: '4/4', highlight: true },
-            { label: 'Avg Latency', value: '14.5ms', highlight: false },
-            { label: 'Uptime', value: '99.9%', highlight: false },
-          ].map((stat) => (
-            <div 
-              key={stat.label} 
-              className="flex justify-between items-center"
-            >
-              <span className="text-alpha-text-muted">{stat.label}</span>
-              <span 
-                className={stat.highlight ? 'font-bold' : 'text-alpha-text-primary font-bold'} 
-                style={stat.highlight ? { color } : undefined}
-              >
-                {stat.value}
-              </span>
-                  </div>
-                  ))}
-               </div>
+            <div className="mt-6 grid gap-3 sm:grid-cols-3">
+              <div className="rounded-[1.3rem] border border-alpha-border px-4 py-4">
+                <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-alpha-text-muted">Channels</p>
+                <p className="mt-2 text-3xl font-semibold text-alpha-text-primary">04</p>
+              </div>
+              <div className="rounded-[1.3rem] border border-alpha-border px-4 py-4">
+                <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-alpha-text-muted">Primary mode</p>
+                <p className="mt-2 text-lg font-semibold text-alpha-text-primary">Build + signal</p>
+              </div>
+              <div className="rounded-[1.3rem] border border-alpha-border px-4 py-4">
+                <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-alpha-text-muted">Response style</p>
+                <p className="mt-2 text-lg font-semibold text-alpha-text-primary">Selective and clear</p>
               </div>
             </div>
-           </div>
           </div>
 
-        <div className="py-8">
-          <div className="relative max-w-4xl">
-            {mediaNodes.map((node, index) => (
-              <NodeCard
-                key={node.id}
-                id={node.id}
-                name={node.name}
-                icon={node.icon}
-                handle={node.handle}
-                url={node.url}
-                description={node.description}
-                color={color}
-                index={index}
-                stats={node.stats}
-              />
-            ))}
-          </div>
-        </div>
-
-        <section className="py-8 border-t border-alpha-border">
-          <div className="font-mono text-xs text-alpha-text-muted flex items-center gap-2">
-            <span style={{ color }}>$</span>
-            <span>connect --list | grep "active"</span>
-            <span className="inline-block w-2 h-4 bg-current animate-pulse" style={{ color }} />
+          <div className="space-y-6">
+            <ActivityTicker />
+            <div className="glass-panel p-6">
+              <p className="font-mono text-[11px] uppercase tracking-[0.18em]" style={{ color: accent }}>
+                connection.note
+              </p>
+              <p className="mt-4 text-sm leading-8 text-alpha-text-secondary">
+                Saya tidak ingin semua platform terasa sama. GitHub dan projects page untuk proof of work. X untuk tempo
+                cepat. Telegram dan TikTok untuk audience layer yang lebih cair.
+              </p>
+            </div>
           </div>
         </section>
+        </ScrollReveal>
+
+        <ScrollReveal variant="left" delay={80}>
+        <section className="grid gap-4 md:grid-cols-2">
+          {channels.map((channel) => {
+            const Icon = channel.icon;
+
+            return (
+              <a
+                key={channel.id}
+                href={channel.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="terminal-card p-5 md:p-6"
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <div
+                    className="flex h-12 w-12 items-center justify-center rounded-2xl"
+                    style={{ background: isDark ? 'rgba(103, 232, 249, 0.1)' : 'rgba(15, 118, 110, 0.08)' }}
+                  >
+                    <Icon className="h-5 w-5" style={{ color: accent }} />
+                  </div>
+                  <ArrowUpRight className="h-4 w-4 text-alpha-text-muted" />
+                </div>
+
+                <div className="mt-5">
+                  <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-alpha-text-muted">{channel.handle}</p>
+                  <h2 className="mt-2 text-2xl font-semibold text-alpha-text-primary">{channel.title}</h2>
+                  <p className="mt-3 text-sm leading-7 text-alpha-text-secondary">{channel.description}</p>
+                </div>
+
+                <div className="mt-5 grid gap-3 sm:grid-cols-2">
+                  <div className="rounded-[1.2rem] border border-alpha-border px-4 py-3">
+                    <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-alpha-text-muted">Best for</p>
+                    <p className="mt-2 text-sm font-medium text-alpha-text-primary">{channel.bestFor}</p>
+                  </div>
+                  <div className="rounded-[1.2rem] border border-alpha-border px-4 py-3">
+                    <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-alpha-text-muted">Tempo</p>
+                    <p className="mt-2 text-sm font-medium text-alpha-text-primary">{channel.tempo}</p>
+                  </div>
+                </div>
+              </a>
+            );
+          })}
+        </section>
+        </ScrollReveal>
+
+        <ScrollReveal variant="right" delay={100}>
+        <section className="glass-panel p-6 md:p-8">
+          <p className="alpha-kicker">Protocol</p>
+          <h2 className="mt-2 text-3xl font-semibold text-alpha-text-primary">How to read my media ecosystem</h2>
+          <div className="mt-6 grid gap-4 md:grid-cols-3">
+            {mediaNotes.map((note) => (
+              <div key={note.title} className="rounded-[1.3rem] border border-alpha-border px-4 py-4">
+                <h3 className="text-xl font-semibold text-alpha-text-primary">{note.title}</h3>
+                <p className="mt-3 text-sm leading-7 text-alpha-text-secondary">{note.description}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+        </ScrollReveal>
       </div>
     </div>
   );

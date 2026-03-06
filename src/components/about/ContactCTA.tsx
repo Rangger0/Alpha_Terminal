@@ -5,8 +5,8 @@ const contactLinks = [
   {
     icon: Mail,
     label: 'Email',
-    value: 'rangger@alpha-terminal.dev',
-    href: 'mailto:rangger@alpha-terminal.dev',
+    value: 'allgazali011@gmail.com',
+    href: 'mailto:allgazali011@gmail.com',
     color: 'hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600 dark:hover:text-red-400'
   },
   {
@@ -67,7 +67,7 @@ export default function ContactCTA() {
 
       <div className="text-center">
         <a
-          href="mailto:rangger@alpha-terminal.dev"
+          href="mailto:allgazali011@gmail.com"
           className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 dark:bg-green-600 text-white rounded-lg font-medium hover:bg-blue-700 dark:hover:bg-green-700 transition-colors"
         >
           <Mail className="w-4 h-4" />

@@ -1,335 +1,222 @@
+import { ArrowUpRight, Code2, Github, Radar, ScrollText, Send, Twitter, Wallet } from 'lucide-react';
 import { useTheme } from '@/hooks/useTheme';
-import { ExternalLink, Activity, TrendingUp, Github, Twitter, Send } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import { ScrollReveal } from '@/components/ScrollReveal';
 import HeroSection from '@/home/HeroSection';
+import { projects } from '@/home/data/Projects';
 
 const TikTokIcon = ({ className }: { className?: string }) => (
-  <svg 
-    viewBox="0 0 24 24" 
-    fill="currentColor" 
-    className={className}
-  >
-    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+  <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
   </svg>
 );
 
-const systemNodes = [
+const pillars = [
   {
-    id: 'PROJECT 01',
-    name: 'ALPHA CAPITAL',
-    description: 'Financial tracking dashboard for portfolio management and analytics.',
-    link: 'https://alpha-capital-one.vercel.app/login',
-    icon: TrendingUp,
+    title: 'Airdrop Intelligence',
+    description: 'Saya suka bekerja di area riset, eligibility, dan claim readiness yang butuh disiplin lebih dari sekadar FOMO.',
+    icon: Radar,
   },
   {
-    id: 'PROJECT 02',
-    name: 'ALPHA TRACKER',
-    description: 'Airdrop monitoring dashboard for eligibility and claim tracking.List Project',
-    link: 'https://alpha-trecker-18xx.vercel.app/dashboard',
-    icon: Activity,
+    title: 'Finance Notes',
+    description: 'Portfolio ini sekarang punya arah baru: catatan keuangan yang rapi, privat, dan mudah direview.',
+    icon: Wallet,
+  },
+  {
+    title: 'Product Shipping',
+    description: 'Bukan hanya ikut tren Web3. Saya juga suka membungkus workflow jadi interface yang premium dan usable.',
+    icon: Code2,
   },
 ];
 
-const mediaNodes = [
-  { 
-    name: 'TIKTOK', 
-    link: 'https://www.tiktok.com/@rinzzx0',
-    icon: TikTokIcon,
-    handle: '@rinzzx0',
-    description: 'Short-form content & tutorials',
-    side: 'left',
+const workflow = [
+  {
+    step: '01',
+    title: 'Research first',
+    description: 'Baca ecosystem, lihat quality campaign, dan pilih hanya peluang yang layak waktu.',
   },
-  { 
-    name: 'X', 
-    link: 'https://x.com/rinzx_',
-    icon: Twitter,
-    handle: '@rinzx_',
-    description: 'Real-time updates & alpha calls',
-    side: 'right',
+  {
+    step: '02',
+    title: 'Track execution',
+    description: 'Pisahkan campaign aktif, quest cadence, dan status claim supaya tidak ada blind spot.',
   },
-  { 
-    name: 'GITHUB', 
-    link: 'https://github.com/Rangger0',
-    icon: Github,
-    handle: '@Rangger0',
-    description: 'Open source & repositories',
-    side: 'left',
+  {
+    step: '03',
+    title: 'Log capital',
+    description: 'Catat biaya, exposure, dan alasan keputusan agar modal tidak bergerak tanpa memori.',
   },
-  { 
-    name: 'TELEGRAM', 
-    link: 'https://t.me/+MGzRobr9cp4yMTk1',
-    icon: Send,
-    handle: 'ALPHA Community',
-    description: 'Community discussions',
-    side: 'right',
+  {
+    step: '04',
+    title: 'Ship clean UI',
+    description: 'Semua workflow dibungkus jadi product surface yang terasa rapi, meyakinkan, dan beda.',
   },
 ];
 
-function useScrollAnimation() {
-  const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
-      },
-      {
-        threshold: 0.2,
-        rootMargin: '0px 0px -50px 0px'
-      }
-    );
-
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  return { ref, isVisible };
-}
+const channels = [
+  { name: 'GitHub', href: 'https://github.com/Rangger0', handle: '@Rangger0', icon: Github },
+  { name: 'X', href: 'https://x.com/rinzx_', handle: '@rinzx_', icon: Twitter },
+  { name: 'Telegram', href: 'https://t.me/+MGzRobr9cp4yMTk1', handle: 'Alpha Community', icon: Send },
+  { name: 'TikTok', href: 'https://www.tiktok.com/@rinzzx0', handle: '@rinzzx0', icon: TikTokIcon },
+];
 
 export function Home() {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
-  const { ref: mediaRef, isVisible: mediaVisible } = useScrollAnimation();
+  const accent = isDark ? '#67e8f9' : '#0f766e';
 
-  const leftNodes = mediaNodes.filter(n => n.side === 'left');
-  const rightNodes = mediaNodes.filter(n => n.side === 'right');
+  const featuredProjects = projects.filter((project) => project.status !== 'Roadmap').slice(0, 3);
+  const liveProjects = projects.filter((project) => project.status === 'Live');
 
   return (
-    <div className="page-transition min-h-screen pt-24 pb-16">
-      <div className="section-container"> 
+    <div className="page-transition min-h-screen pb-16 pt-28">
+      <div className="section-container space-y-12 md:space-y-16">
         <HeroSection />
-        <section className="py-12">
-          <div className="flex items-center gap-3 mb-8">
-            <div 
-              className="w-2 h-2 rounded-full animate-pulse"
-              style={{ background: isDark ? '#00FF88' : '#10B981' }}
-            />
-            <h2 className="font-mono text-lg text-[var(--alpha-text-primary)]">
-              SYSTEM STATUS
-            </h2>
-            <span className="font-mono text-xs text-[var(--alpha-text-muted)]">
-              [ONLINE]
-            </span>
+
+        <ScrollReveal delay={60}>
+        <section className="grid gap-4 lg:grid-cols-3">
+          {pillars.map((pillar) => {
+            const Icon = pillar.icon;
+
+            return (
+              <div key={pillar.title} className="terminal-card p-5 md:p-6">
+                <div
+                  className="flex h-11 w-11 items-center justify-center rounded-2xl"
+                  style={{ background: isDark ? 'rgba(103, 232, 249, 0.1)' : 'rgba(15, 118, 110, 0.08)' }}
+                >
+                  <Icon className="h-5 w-5" style={{ color: accent }} />
+                </div>
+                <h2 className="mt-5 text-2xl font-semibold text-alpha-text-primary">{pillar.title}</h2>
+                <p className="mt-3 text-sm leading-7 text-alpha-text-secondary">{pillar.description}</p>
+              </div>
+            );
+          })}
+        </section>
+        </ScrollReveal>
+
+        <ScrollReveal variant="left" delay={80}>
+        <section className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="glass-panel p-6 md:p-8">
+            <div className="flex items-center justify-between gap-3">
+              <div>
+                <p className="alpha-kicker">Featured Nodes</p>
+                <h2 className="mt-2 text-3xl font-semibold text-alpha-text-primary">Flagship builds inside Alpha Terminal</h2>
+              </div>
+              <a href="/projects" className="alpha-button secondary">
+                All projects
+              </a>
+            </div>
+
+            <div className="mt-6 space-y-4">
+              {featuredProjects.map((project) => (
+                <a
+                  key={project.id}
+                  href={project.link ?? '/projects'}
+                  target={project.link ? '_blank' : undefined}
+                  rel={project.link ? 'noopener noreferrer' : undefined}
+                  className="block rounded-[1.4rem] border border-alpha-border p-4 transition-transform hover:-translate-y-1 md:p-5"
+                  style={{
+                    background: `linear-gradient(135deg, ${project.accent}16 0%, transparent 62%), ${isDark ? 'rgba(9, 14, 28, 0.78)' : 'rgba(255,255,255,0.78)'}`,
+                  }}
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <span className="font-mono text-[11px] uppercase tracking-[0.18em]" style={{ color: project.accent }}>
+                        {project.nodeId}
+                      </span>
+                      <h3 className="mt-2 text-xl font-semibold text-alpha-text-primary">{project.name}</h3>
+                      <p className="mt-2 text-sm leading-7 text-alpha-text-secondary">{project.summary}</p>
+                    </div>
+                    <ArrowUpRight className="mt-1 h-4 w-4" style={{ color: project.accent }} />
+                  </div>
+                </a>
+              ))}
+            </div>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6">
-            {systemNodes.map((node) => (
-              <div 
-                key={node.id}
-                className="terminal-card p-6 group"
-              >
-                <div className="flex items-start justify-between mb-4">
-                  <div className="flex items-center gap-3">
-                    <div 
-                      className="w-10 h-10 rounded-lg flex items-center justify-center"
-                      style={{ 
-                        background: isDark ? 'rgba(0, 255, 136, 0.1)' : 'rgba(37, 99, 235, 0.1)',
-                        color: isDark ? '#00FF88' : '#2563EB'
-                      }}
-                    >
-                      <node.icon className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <span 
-                        className="font-mono text-xs px-2 py-0.5 rounded"
-                        style={{ 
-                          background: isDark ? 'rgba(0, 255, 136, 0.1)' : 'rgba(37, 99, 235, 0.1)',
-                          color: isDark ? '#00FF88' : '#2563EB'
-                        }}
-                      >
-                        {node.id}
-                      </span>
-                    </div>
-                  </div>
-                  <span className="status-live">
-                    <span className="w-1.5 h-1.5 rounded-full bg-current animate-pulse" />
-                    LIVE
-                  </span>
-                </div>
+          <div className="glass-panel p-6 md:p-8">
+            <p className="alpha-kicker">Operator Note</p>
+            <h2 className="mt-2 text-3xl font-semibold text-alpha-text-primary">Portfolio ini diarahkan jadi proof of work, bukan brosur.</h2>
+            <p className="mt-4 text-sm leading-8 text-alpha-text-secondary">
+              Yang saya kejar bukan layout keren saja, tapi surface yang benar-benar mewakili workflow saya: memfilter signal,
+              mengeksekusi campaign, dan menyimpan catatan modal dengan lebih disiplin.
+            </p>
 
-                <h3 className="font-mono text-xl font-semibold text-[var(--alpha-text-primary)] mb-2">
-                  {node.name}
-                </h3>
-                <p className="text-sm text-[var(--alpha-text-secondary)] mb-4">
-                  {node.description}
+            <div className="mt-6 space-y-3">
+              <div className="rounded-[1.3rem] border border-alpha-border px-4 py-4">
+                <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-alpha-text-muted">Live nodes</p>
+                <p className="mt-2 text-2xl font-semibold text-alpha-text-primary">{liveProjects.length}</p>
+                <p className="mt-2 text-sm text-alpha-text-secondary">Dua sistem live jadi tulang punggung portfolio ini hari ini.</p>
+              </div>
+              <div className="rounded-[1.3rem] border border-alpha-border px-4 py-4">
+                <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-alpha-text-muted">Next expansion</p>
+                <p className="mt-2 text-lg font-semibold text-alpha-text-primary">Finance journal + research desk</p>
+                <p className="mt-2 text-sm text-alpha-text-secondary">Itu sebabnya saya tambahkan roadmap dan README-style detail di halaman project.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+        </ScrollReveal>
+
+        <ScrollReveal variant="right" delay={90}>
+        <section className="glass-panel p-6 md:p-8">
+          <div className="flex items-center gap-3">
+            <ScrollText className="h-5 w-5" style={{ color: accent }} />
+            <p className="alpha-kicker">Execution Loop</p>
+          </div>
+          <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            {workflow.map((item) => (
+              <div key={item.step} className="rounded-[1.3rem] border border-alpha-border px-4 py-5">
+                <p className="font-mono text-[11px] uppercase tracking-[0.18em]" style={{ color: accent }}>
+                  Step {item.step}
                 </p>
-
-                <a
-                  href={node.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 font-mono text-sm transition-colors group/link"
-                  style={{ color: isDark ? '#00FF88' : '#2563EB' }}
-                >
-                  <span className="group-hover/link:underline">Access Dashboard</span>
-                  <ExternalLink className="w-3.5 h-3.5 transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
-                </a>
+                <h3 className="mt-3 text-xl font-semibold text-alpha-text-primary">{item.title}</h3>
+                <p className="mt-3 text-sm leading-7 text-alpha-text-secondary">{item.description}</p>
               </div>
             ))}
           </div>
         </section>
-        <section className="py-12 overflow-hidden" ref={mediaRef}>
-          <div className="flex items-center gap-3 mb-12 justify-center">
-            <span className="font-mono text-lg text-[var(--alpha-text-primary)]">
-              MEDIA_NODES
-            </span>
-            <span className="font-mono text-xs text-[var(--alpha-text-muted)]">
-              [4 CONNECTIONS]
-            </span>
+        </ScrollReveal>
+
+        <ScrollReveal delay={100}>
+        <section>
+          <div className="mb-5 flex items-center justify-between gap-3">
+            <div>
+              <p className="alpha-kicker">Media Links</p>
+              <h2 className="mt-2 text-3xl font-semibold text-alpha-text-primary">Where Alpha Terminal stays active</h2>
+            </div>
+            <a href="/media" className="alpha-button secondary">
+              Open media room
+            </a>
           </div>
-          <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-6 md:gap-8">
-            <div className="space-y-4">
-              {leftNodes.map((media, index) => {
-                const IconComponent = media.icon;
-                const delay = index * 150;
-                return (
-                  <a
-                    key={media.name}
-                    href={media.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`group block transition-all duration-700 ease-out
-                      hover:scale-[1.02] hover:-translate-y-1
-                      ${mediaVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-20'}`}
-                    style={{
-                      marginLeft: `${index * 40}px`,
-                      transitionDelay: `${delay}ms`,
-                    }}
-                  >
-                    <div 
-                      className="flex items-center gap-4 p-4 rounded-xl border transition-all duration-300
-                        hover:border-[var(--alpha-neon)] hover:shadow-lg hover:shadow-[var(--alpha-neon)]/10"
-                      style={{ 
-                        borderColor: isDark ? 'rgba(0, 255, 136, 0.3)' : 'rgba(37, 99, 235, 0.3)',
-                        background: isDark 
-                          ? 'rgba(15, 23, 42, 0.6)' 
-                          : 'rgba(255, 255, 255, 0.8)',
-                      }}
+
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            {channels.map((channel) => {
+              const Icon = channel.icon;
+
+              return (
+                <a
+                  key={channel.name}
+                  href={channel.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="terminal-card p-5"
+                >
+                  <div className="flex items-center justify-between gap-3">
+                    <div
+                      className="flex h-11 w-11 items-center justify-center rounded-2xl"
+                      style={{ background: isDark ? 'rgba(103, 232, 249, 0.1)' : 'rgba(15, 118, 110, 0.08)' }}
                     >
-                      <div 
-                        className="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center
-                          transition-all duration-300 group-hover:scale-110"
-                        style={{ 
-                          background: isDark 
-                            ? 'rgba(0, 255, 136, 0.15)' 
-                            : 'rgba(37, 99, 235, 0.15)',
-                          border: `2px solid ${isDark ? 'rgba(0, 255, 136, 0.4)' : 'rgba(37, 99, 235, 0.4)'}`,
-                          color: isDark ? '#00FF88' : '#2563EB',
-                        }}
-                      >
-                        <IconComponent className="w-6 h-6" />
-                      </div>
-
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 mb-1">
-                          <span className="font-mono font-bold text-[var(--alpha-text-primary)] group-hover:text-[var(--alpha-neon)] transition-colors">
-                            {media.name}
-                          </span>
-                        </div>
-                        <span className="font-mono text-xs text-[var(--alpha-text-muted)] block mb-1">
-                          {media.handle}
-                        </span>
-                        <p className="text-sm text-[var(--alpha-text-secondary)]">
-                          {media.description}
-                        </p>
-                      </div>
-
-                      <ExternalLink 
-                        className="w-5 h-5 text-[var(--alpha-text-muted)] transition-all duration-300 
-                          group-hover:text-[var(--alpha-neon)] group-hover:translate-x-1 group-hover:-translate-y-1 flex-shrink-0"
-                      />
+                      <Icon className="h-5 w-5" style={{ color: accent }} />
                     </div>
-                  </a>
-                );
-              })}
-            </div>
-            <div className="space-y-4 md:mt-12">
-              {rightNodes.map((media, index) => {
-                const IconComponent = media.icon;
-                const delay = index * 150;
-                
-                return (
-                  <a
-                    key={media.name}
-                    href={media.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`group block transition-all duration-700 ease-out
-                      hover:scale-[1.02] hover:-translate-y-1
-                      ${mediaVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-20'}`}
-                    style={{
-                      marginRight: `${index * 40}px`,
-                      marginLeft: 'auto',
-                      transitionDelay: `${delay}ms`,
-                    }}
-                  >
-                    <div 
-                      className="flex items-center gap-4 p-4 rounded-xl border transition-all duration-300
-                        hover:border-[var(--alpha-neon)] hover:shadow-lg hover:shadow-[var(--alpha-neon)]/10"
-                      style={{ 
-                        borderColor: isDark ? 'rgba(0, 255, 136, 0.3)' : 'rgba(37, 99, 235, 0.3)',
-                        background: isDark 
-                          ? 'rgba(15, 23, 42, 0.6)' 
-                          : 'rgba(255, 255, 255, 0.8)',
-                      }}
-                    >
-                      <div 
-                        className="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center
-                          transition-all duration-300 group-hover:scale-110"
-                        style={{ 
-                          background: isDark 
-                            ? 'rgba(0, 255, 136, 0.15)' 
-                            : 'rgba(37, 99, 235, 0.15)',
-                          border: `2px solid ${isDark ? 'rgba(0, 255, 136, 0.4)' : 'rgba(37, 99, 235, 0.4)'}`,
-                          color: isDark ? '#00FF88' : '#2563EB',
-                        }}
-                      >
-                        <IconComponent className="w-6 h-6" />
-                      </div>
-
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 mb-1">
-                          <span className="font-mono font-bold text-[var(--alpha-text-primary)] group-hover:text-[var(--alpha-neon)] transition-colors">
-                            {media.name}
-                          </span>
-                        </div>
-                        <span className="font-mono text-xs text-[var(--alpha-text-muted)] block mb-1">
-                          {media.handle}
-                        </span>
-                        <p className="text-sm text-[var(--alpha-text-secondary)]">
-                          {media.description}
-                        </p>
-                      </div>
-
-                      <ExternalLink 
-                        className="w-5 h-5 text-[var(--alpha-text-muted)] transition-all duration-300 
-                          group-hover:text-[var(--alpha-neon)] group-hover:translate-x-1 group-hover:-translate-y-1 flex-shrink-0"
-                      />
-                    </div>
-                  </a>
-                );
-              })}
-            </div>
+                    <ArrowUpRight className="h-4 w-4 text-alpha-text-muted" />
+                  </div>
+                  <h3 className="mt-5 text-xl font-semibold text-alpha-text-primary">{channel.name}</h3>
+                  <p className="mt-2 font-mono text-xs uppercase tracking-[0.18em] text-alpha-text-muted">{channel.handle}</p>
+                </a>
+              );
+            })}
           </div>
         </section>
-        <section className="py-8 border-t border-[var(--alpha-border)] mt-8">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <div className="font-mono text-xs text-[var(--alpha-text-muted)]">
-              <span className="text-[var(--alpha-neon)]">$</span> system.status --check
-            </div>
-            <div className="font-mono text-xs text-[var(--alpha-text-muted)]">
-              v1.0.0 | Build 2024.02.20
-            </div>
-          </div>
-        </section>
-
+        </ScrollReveal>
       </div>
     </div>
   );
