@@ -15,7 +15,7 @@ const channels = [
     title: 'GitHub',
     handle: '@Rangger0',
     href: 'https://github.com/Rangger0',
-    description: 'Tempat paling pas untuk lihat build, struktur project, dan eksperimen UI yang saya kerjakan.',
+    description: 'The best place to inspect builds, project structure, and the UI experiments I ship.',
     bestFor: 'Code and release notes',
     tempo: 'Product-focused',
     icon: Github,
@@ -25,7 +25,7 @@ const channels = [
     title: 'X',
     handle: '@rinzx_',
     href: 'https://x.com/rinzx_',
-    description: 'Untuk update cepat, observasi Web3, dan potongan thought process yang lebih real-time.',
+    description: 'Fast updates, Web3 observations, and short slices of real-time thought process.',
     bestFor: 'Fast signal',
     tempo: 'Realtime',
     icon: Twitter,
@@ -35,7 +35,7 @@ const channels = [
     title: 'Telegram',
     handle: 'Alpha Community',
     href: 'https://t.me/+MGzRobr9cp4yMTk1',
-    description: 'Kanal yang lebih dekat untuk ngobrol, share update, dan bangun audience yang relevan.',
+    description: 'A closer channel for updates, conversations, and building a relevant audience.',
     bestFor: 'Community flow',
     tempo: 'Conversational',
     icon: Send,
@@ -45,7 +45,7 @@ const channels = [
     title: 'TikTok',
     handle: '@rinzzx0',
     href: 'https://www.tiktok.com/@rinzzx0',
-    description: 'Ruang untuk format pendek: tutorial, vibe, dan highlight dari workflow yang lagi dijalankan.',
+    description: 'A short-form space for tutorials, workflow vibes, and build highlights.',
     bestFor: 'Short-form content',
     tempo: 'Visual',
     icon: TikTokIcon,
@@ -55,15 +55,15 @@ const channels = [
 const mediaNotes = [
   {
     title: 'Code first',
-    description: 'Kalau ingin nilai teknis, mulai dari GitHub dan halaman projects.',
+    description: 'If you want technical proof, start with GitHub and the projects page.',
   },
   {
     title: 'Signal next',
-    description: 'Untuk konteks cepat dan pengamatan sehari-hari, X lebih cocok.',
+    description: 'For quick context and day-to-day observations, X fits best.',
   },
   {
     title: 'Community layer',
-    description: 'Telegram dan TikTok dipakai untuk bentuk hubungan yang lebih dekat dan santai.',
+    description: 'Telegram and TikTok handle the more direct and lightweight audience layer.',
   },
 ];
 
@@ -83,11 +83,7 @@ export function Media() {
               media room / active
             </span>
             <p className="alpha-kicker mt-6">External presence</p>
-            <h1 className="mt-2 text-4xl font-semibold text-alpha-text-primary md:text-6xl">Satu brand, beberapa jalur komunikasi.</h1>
-            <p className="mt-5 max-w-2xl text-base leading-8 text-alpha-text-secondary">
-              Halaman ini saya rapikan supaya jadi hub yang lebih premium. Setiap kanal punya fungsi yang berbeda: code,
-              real-time signal, community, atau short-form content.
-            </p>
+            <h1 className="mt-2 text-4xl font-semibold text-alpha-text-primary md:text-6xl">One brand, multiple communication lanes.</h1>
 
             <div className="mt-6 grid gap-3 sm:grid-cols-3">
               <div className="rounded-[1.3rem] border border-alpha-border px-4 py-4">
@@ -112,8 +108,8 @@ export function Media() {
                 connection.note
               </p>
               <p className="mt-4 text-sm leading-8 text-alpha-text-secondary">
-                Saya tidak ingin semua platform terasa sama. GitHub dan projects page untuk proof of work. X untuk tempo
-                cepat. Telegram dan TikTok untuk audience layer yang lebih cair.
+                Not every platform should feel identical. GitHub and the projects page carry proof of work. X handles faster
+                signal. Telegram and TikTok cover the lighter audience layer.
               </p>
             </div>
           </div>

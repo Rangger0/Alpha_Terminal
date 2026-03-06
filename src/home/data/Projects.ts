@@ -200,7 +200,7 @@ export const projects: Project[] = [
     readme: [
       'Membuat portfolio terasa aktif karena ada dokumentasi shipping.',
       'Menunjukkan proses berpikir, bukan cuma tampilan akhir proyek.',
-      'Dirancang untuk menguatkan brand Alpha Terminal sebagai operating portfolio.',
+      'Designed to strengthen Alpha Terminal as an operating portfolio.',
     ],
     roadmap: [
       'Tambah halaman changelog publik.',
@@ -214,31 +214,31 @@ export const roadmapPhases: RoadmapPhase[] = [
   {
     id: '01',
     title: 'Now',
-    description: 'Memperkuat dua sistem live agar portfolio terasa nyata dan operasional.',
+    description: 'Strengthening the two live systems so the portfolio feels active and operational.',
     items: [
-      'Polish Alpha Capital untuk review modal yang lebih cepat.',
-      'Tambahkan kualitas riset dan claim clarity di Alpha Tracker.',
-      'Samakan bahasa desain seluruh ecosystem Alpha Terminal.',
+      'Polish Alpha Capital for faster capital review.',
+      'Improve research quality and claim clarity inside Alpha Tracker.',
+      'Unify the design language across the Alpha Terminal ecosystem.',
     ],
   },
   {
     id: '02',
     title: 'Next',
-    description: 'Menambah lapisan finance notes dan research intelligence.',
+    description: 'Adding finance-note and research-intelligence layers.',
     items: [
-      'Rilis Alpha Ledger sebagai private finance journal.',
-      'Bangun Alpha Signal untuk scoring dan narrative mapping.',
-      'Hubungkan research, tracking, dan note-taking lebih rapat.',
+      'Release Alpha Ledger as a private finance journal.',
+      'Build Alpha Signal for scoring and narrative mapping.',
+      'Connect research, tracking, note-taking, and AI tools more tightly.',
     ],
   },
   {
     id: '03',
     title: 'Later',
-    description: 'Mendorong automation, release storytelling, dan operational safety.',
+    description: 'Pushing further into automation, release storytelling, and operational safety.',
     items: [
-      'Bangun Alpha Vault untuk workflow wallet yang lebih aman.',
-      'Tambahkan Alpha Dispatch sebagai release room publik.',
-      'Eksplor read-only sync dan report export untuk review mingguan.',
+      'Build Alpha Vault for safer wallet workflows.',
+      'Ship Alpha Dispatch as a public release room.',
+      'Explore read-only sync and report exports for weekly reviews.',
     ],
   },
 ];

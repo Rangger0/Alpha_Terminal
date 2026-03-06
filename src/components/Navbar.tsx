@@ -81,7 +81,7 @@ export function Navbar({ currentPage }: NavbarProps) {
           <div className="flex items-center gap-2">
             <div className="hidden rounded-full border border-alpha-border px-3 py-2 font-mono text-[11px] uppercase tracking-[0.18em] text-alpha-text-muted lg:flex lg:items-center lg:gap-2">
               <span className="h-2 w-2 rounded-full bg-emerald-400" />
-              Web3 / Airdrop / Finance
+              Web3 / Airdrop / AI / Finance
             </div>
             <button
               onClick={toggleTheme}

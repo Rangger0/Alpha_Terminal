@@ -67,10 +67,6 @@ export function Projects() {
               <p className="alpha-kicker">Premium build collection</p>
               <h1 className="mt-2 text-4xl font-semibold text-alpha-text-primary md:text-6xl">Projects that reflect the actual workflow.</h1>
             </div>
-            <p className="max-w-2xl text-base leading-8 text-alpha-text-secondary">
-              Saya tambahkan preview visual, README-style notes, dan roadmap di setiap card supaya halaman project terasa lebih
-              kaya dan lebih jujur terhadap apa yang sedang dibangun.
-            </p>
           </div>
 
           <div className="glass-panel p-6 md:p-7">
@@ -79,12 +75,12 @@ export function Projects() {
             </p>
             <div className="mt-5 space-y-4 text-sm leading-8 text-alpha-text-secondary">
               <p>
-                Alpha Terminal bukan template portfolio biasa. Halaman ini menggabungkan project preview, catatan fungsi, dan
-                arah pengembangan supaya visitor langsung paham value setiap build.
+                This is not a static portfolio shell. It combines project previews, functional notes, and direction so each
+                build is easy to evaluate at a glance.
               </p>
               <p>
-                Fokus utamanya tetap sama: Web3 execution, airdrop intelligence, dan finance notes yang bisa tumbuh menjadi
-                operating system pribadi.
+                The scope now spans Web3 execution, airdrop intelligence, finance systems, and AI-assisted tooling that can
+                grow into a personal operating stack.
               </p>
             </div>
             <div className="mt-6 grid gap-3 md:grid-cols-2">
@@ -178,7 +174,7 @@ export function Projects() {
         <ScrollReveal delay={110}>
         <section className="glass-panel p-6 md:p-8">
           <p className="alpha-kicker">Roadmap</p>
-          <h2 className="mt-2 text-3xl font-semibold text-alpha-text-primary">Arah perluasan Alpha Terminal</h2>
+          <h2 className="mt-2 text-3xl font-semibold text-alpha-text-primary">Expansion roadmap for the ecosystem</h2>
           <div className="mt-6 grid gap-4 xl:grid-cols-3">
             {roadmapPhases.map((phase) => (
               <div key={phase.id} className="rounded-[1.4rem] border border-alpha-border px-5 py-5">
